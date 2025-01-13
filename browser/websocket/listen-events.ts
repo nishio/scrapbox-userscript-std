@@ -16,13 +16,6 @@ import type {
  * This interface defines all the event handlers that can be registered to listen
  * for various real-time events like page updates, cursor movements, and search operations.
  */
-/** WebSocket event handlers for real-time Scrapbox page updates and collaboration
- * 
- * This interface defines all the event handlers that can be registered to listen
- * for various real-time events like page updates, cursor movements, and search operations.
- * 
- * @public
- */
 export interface ListenEvents {
   /** Handler for project update stream commit events
    * 
@@ -195,15 +188,7 @@ export interface ProjectEvent {
   updated: number;
 }
 
-/** Event emitted when a page is deleted
- * 
- * @property type - Always "page.delete"
- * @property data.titleLc - Lowercase version of the deleted page's title
- */
-/** Event emitted when a page is deleted from the project
- * 
- * @extends ProjectEvent Base event interface with common properties
- */
+/** Event emitted when a page is deleted from the project */
 export interface PageDeleteEvent extends ProjectEvent {
   /** Type identifier for page deletion events */
   type: "page.delete";
@@ -213,81 +198,36 @@ export interface PageDeleteEvent extends ProjectEvent {
     titleLc: string;
   };
 }
-/** Event emitted when a user joins the project
- * 
- * @property type - Always "member.join"
- */
-/** Event emitted when a user joins the project
- * 
- * @extends ProjectEvent Base event interface with common properties
- */
+/** Event emitted when a user joins the project */
 export interface MemberJoinEvent extends ProjectEvent {
   /** Type identifier for member join events */
   type: "member.join";
 }
-/** Event emitted when a member is added to the project
- * 
- * @property type - Always "member.add"
- */
-/** Event emitted when a member is added to the project
- * 
- * @extends ProjectEvent Base event interface with common properties
- */
+/** Event emitted when a member is added to the project */
 export interface MemberAddEvent extends ProjectEvent {
   /** Type identifier for member addition events */
   type: "member.add";
 }
-/** Event emitted when the project's invitation link is reset
- * 
- * @property type - Always "invitation.reset"
- */
-/** Event emitted when the project's invitation link is reset
- * 
- * @extends ProjectEvent Base event interface with common properties
- */
+/** Event emitted when the project's invitation link is reset */
 export interface InvitationResetEvent extends ProjectEvent {
   /** Type identifier for invitation reset events */
   type: "invitation.reset";
 }
-/** Event emitted when a user is promoted to admin
- * 
- * @property type - Always "admin.add"
- * @property targetUserId - ID of the user being promoted to admin
- */
-/** Event emitted when a user is promoted to admin
- * 
- * @extends ProjectEvent Base event interface with common properties
- */
+/** Event emitted when a user is promoted to admin */
 export interface AdminAddEvent extends ProjectEvent {
   /** Type identifier for admin promotion events */
   type: "admin.add";
   /** ID of the user being promoted to admin */
   targetUserId: string;
 }
-/** Event emitted when a user's admin privileges are revoked
- * 
- * @property type - Always "admin.delete"
- * @property targetUserId - ID of the user whose admin privileges are being revoked
- */
-/** Event emitted when a user's admin privileges are revoked
- * 
- * @extends ProjectEvent Base event interface with common properties
- */
+/** Event emitted when a user's admin privileges are revoked */
 export interface AdminDeleteEvent extends ProjectEvent {
   /** Type identifier for admin removal events */
   type: "admin.delete";
   /** ID of the user whose admin privileges are being revoked */
   targetUserId: string;
 }
-/** Event emitted when project ownership is transferred
- * 
- * @property type - Always "owner.set"
- * @property targetUserId - ID of the user receiving project ownership
- */
-/** Event emitted when project ownership is transferred
- * 
- * @extends ProjectEvent Base event interface with common properties
- */
+/** Event emitted when project ownership is transferred */
 export interface OwnerSetEvent extends ProjectEvent {
   /** Type identifier for ownership transfer events */
   type: "owner.set";
@@ -297,14 +237,8 @@ export interface OwnerSetEvent extends ProjectEvent {
 
 /** Notification of a commit being applied to a page
  * 
- * @property id - Unique identifier for this commit notification
- */
-/** Notification of a commit being applied to a page
- * 
  * Extends {@linkcode PageCommit} to add a unique identifier for tracking
  * and referencing specific commit notifications.
- * 
- * @public
  */
 export interface CommitNotification extends PageCommit {
   /** Unique identifier for this commit notification */
@@ -313,17 +247,8 @@ export interface CommitNotification extends PageCommit {
 
 /** Commit notification for quick search operations
  * 
- * Similar to CommitNotification but with a restricted set of possible changes
- * that can occur during quick search operations.
- * 
- * @property changes - Array of changes that can occur during quick search
- */
-/** Commit notification for quick search operations
- * 
  * Extends {@linkcode CommitNotification} but restricts the possible changes
  * to those that can occur during quick search operations.
- * 
- * @public
  */
 export interface QuickSearchCommit extends Omit<CommitNotification, "changes"> {
   /** Array of changes made during quick search
@@ -339,15 +264,8 @@ export interface QuickSearchCommit extends Omit<CommitNotification, "changes"> {
 
 /** Represents a link replacement operation in quick search
  * 
- * @property from - Original link text to be replaced
- * @property to - New link text to replace with
- */
-/** Represents a link replacement operation in quick search
- * 
  * Contains the original link text and its replacement for tracking
  * link updates during quick search operations.
- * 
- * @public
  */
 export interface QuickSearchReplaceLink {
   /** Original link text to be replaced */

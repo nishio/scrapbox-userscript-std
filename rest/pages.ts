@@ -20,9 +20,7 @@ import type {
 import type { Page, PageList } from "./types.ts";
 
 /** Options for {@linkcode getPage} */
-/** Options for retrieving a single page
- * @extends {BaseOptions}
- */
+/** Options for retrieving a single page */
 export interface GetPageOption extends BaseOptions {
   /** Whether to follow page renames
    * @default {true}
@@ -202,9 +200,7 @@ export const getPage: GetPage = /* @__PURE__ */ (() => {
 })();
 
 /** Options for {@linkcode listPages} */
-/** Options for listing pages in a project
- * @extends {BaseOptions}
- */
+/** Options for listing pages in a project */
 export interface ListPagesOption extends BaseOptions {
   /** How to sort the returned page list
    * @default {"updated"}
@@ -264,7 +260,6 @@ export interface ListPages {
    * @param project - The project name to list pages from
    * @param options - Additional configuration options
    * @returns A Result containing either the page list or an error
-   * @public
    */
   (
     project: string,

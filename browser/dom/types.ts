@@ -6,38 +6,16 @@
  * @module
  */
 
-/** Re-export BaseLine from @cosense/types/rest
- * 
- * @public
- */
+/** Re-export BaseLine from @cosense/types/rest */
 export type { BaseLine } from "@cosense/types/rest";
 
-/** Base class for store objects that can emit events
+/** Base store class for managing state and events
  * 
  * Provides common functionality for managing state and events
- * across the editor components. Used as a foundation for various
+ * across editor components. Used as a foundation for various
  * store implementations like Page, Cursor, and Selection.
  * 
  * @template Event - Type of events that can be emitted by this store
- * @public
- */
-/** Base store class for managing state and events
- * 
- * Provides common functionality for managing state and events
- * across editor components. Used as a foundation for various
- * store implementations.
- * 
- * @template Event - Type of events that can be emitted by this store
- * @public
- */
-/** Base store class for managing state and events
- * 
- * Provides common functionality for managing state and events
- * across editor components. Used as a foundation for various
- * store implementations.
- * 
- * @template Event - Type of events that can be emitted by this store
- * @public
  */
 export declare class BaseStore<Event = string> {
   /** Add an event listener

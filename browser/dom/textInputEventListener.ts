@@ -106,7 +106,6 @@ export const addTextInputEventListener = <K extends keyof HTMLElementEventMap>(
  * @param name - The event type to remove
  * @param listener - The callback function to remove
  * @param options - The same options object used when adding the listener
- * @public
  */
 export const removeTextInputEventListener = <
   K extends keyof HTMLElementEventMap,

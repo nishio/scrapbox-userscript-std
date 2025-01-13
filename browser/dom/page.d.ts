@@ -4,8 +4,6 @@ import type { Page as PageData } from "@cosense/types/rest";
 /** Options for setting cursor position in the editor
  * 
  * Controls cursor movement behavior and event source tracking.
- * 
- * @public
  */
 export interface SetPositionOptions {
   /** Whether to auto-scroll the page when the cursor moves outside the viewport
@@ -27,8 +25,6 @@ export interface SetPositionOptions {
  * 
  * Contains parameters needed to construct API URLs for fetching
  * page data and related resources.
- * 
- * @public
  */
 export interface ApiUrlForFetch {
   /** Name of the Scrapbox project */
@@ -47,8 +43,6 @@ export interface ApiUrlForFetch {
  * 
  * Contains page data and optional previous/next page information
  * for applying snapshots to the editor.
- * 
- * @public
  */
 export interface ApplySnapshotInit {
   /** Current page data with selected fields */
@@ -63,8 +57,6 @@ export interface ApplySnapshotInit {
  * 
  * Extends the base page data with a timestamp indicating when
  * the page was last cached.
- * 
- * @public
  */
 export type PageWithCache = PageData & { 
   /** Timestamp when the page was cached, or undefined if not cached */
@@ -77,41 +69,32 @@ export type PageWithCache = PageData & {
  * accessing and manipulating page data. Handles page
  * loading, caching, and real-time updates.
  * Extends BaseStore to provide event handling capabilities.
- * 
- * @public
- */
-/** Page management class for the editor
- * 
- * Handles page-level operations and state management.
- * Extends BaseStore for event handling capabilities.
- * 
- * @public
  */
 export declare class Page extends BaseStore<
   { source: "mouse" | undefined } | "focusTextInput" | "scroll" | undefined
 > {
-  public initialize(): void;
+  initialize(): void;
 
   private data: PageWithCache;
 
-  public get(): PageWithCache;
+  get(): PageWithCache;
 
-  public apiUrlForFetch(init: ApiUrlForFetch): string;
-  public apiUrlForUpdatePageAccessed(pageId: string): string;
-  public fetch(): Promise<PageWithCache>;
+  apiUrlForFetch(init: ApiUrlForFetch): string;
+  apiUrlForUpdatePageAccessed(pageId: string): string;
+  fetch(): Promise<PageWithCache>;
 
-  public set(page: PageWithCache): void;
-  public reset(): void;
-  public applySnapshot(init: ApplySnapshotInit): void;
+  set(page: PageWithCache): void;
+  reset(): void;
+  applySnapshot(init: ApplySnapshotInit): void;
   setTitle(title: string, init?: { from: string }): void;
   get fromCacheStorage(): boolean;
-  public setPin(pin: number): void;
-  public delete(): void;
-  public patch(t: unknown): void;
-  public patchChanges(
+  setPin(pin: number): void;
+  delete(): void;
+  patch(t: unknown): void;
+  patchChanges(
     t: unknown,
     init?: { from: string },
   ): Promise<unknown>;
   get hasSelfBackLink(): boolean;
-  public requestFetchApiCacheToServiceWorker(): unknown;
+  requestFetchApiCacheToServiceWorker(): unknown;
 }

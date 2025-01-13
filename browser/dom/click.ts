@@ -1,6 +1,5 @@
 import { delay } from "@std/async/delay";
 
-/** the options for `click()` */
 /** Options for simulating mouse click events
  * 
  * Configures the properties of a simulated mouse click including position,

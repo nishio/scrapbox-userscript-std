@@ -10,35 +10,17 @@ import type { Page } from "./page.d.ts";
  * 
  * Controls cursor movement behavior and event source tracking.
  * Used by the Cursor class to manage cursor positioning.
- * 
- * @public
- */
-/** Options for setting cursor position in the editor
- * 
- * Controls cursor movement behavior and event source tracking.
- * Used by the Cursor class to manage cursor positioning.
- * 
- * @public
- */
-/** Options for setting cursor position in the editor
- * 
- * Controls cursor movement behavior and event source tracking.
- * Used by the Cursor class to manage cursor positioning.
- * 
- * @public
  */
 export interface SetPositionOptions {
   /** Whether to auto-scroll the page when the cursor moves outside the viewport
    *
    * @default {true}
-   * @type {boolean}
    */
   scrollInView?: boolean;
 
   /** Source of the cursor movement event
    *
    * `"mouse"` indicates the cursor was moved by mouse interaction
-   * @type {"mouse"}
    */
   source?: "mouse";
 }
@@ -50,19 +32,14 @@ export interface SetPositionOptions {
  * 
  * @see {@linkcode Position} for cursor position type details
  * @see {@linkcode Page} for page data type details
- * @extends {@linkcode BaseStore}<{ source: "mouse" | undefined } | "focusTextInput" | "scroll" | undefined>
- * @public
  */
 export declare class Cursor extends BaseStore<
   { source: "mouse" | undefined } | "focusTextInput" | "scroll" | undefined
 > {
   constructor();
 
-  /** Flag indicating whether the cursor interaction started with a touch event
-   * 
-   * @public
-   */
-  public startedWithTouch: boolean;
+  /** Flag indicating whether the cursor interaction started with a touch event */
+  startedWithTouch: boolean;
 
   /** Reset cursor position and remove cursor focus from the editor */
   clear(): void;
@@ -70,7 +47,6 @@ export declare class Cursor extends BaseStore<
   /** Get the current cursor position
    * 
    * @returns The current cursor position with line and column information
-   * @public
    */
   getPosition(): Position;
 
@@ -84,12 +60,6 @@ export declare class Cursor extends BaseStore<
   /** Move the cursor to the specified position
    * @param position - The target position to move the cursor to
    * @param option - Optional settings for the cursor movement. See {@linkcode SetPositionOptions}
-   */
-  /** Set the cursor position in the editor
-   * 
-   * @param position - The new position to set the cursor to
-   * @param options - Optional settings for the position change
-   * @public
    */
   setPosition(
     position: Position,
@@ -184,19 +154,9 @@ export declare class Cursor extends BaseStore<
       | "go-pageup",
   ): void;
 
-  /** Get the content of the current page
-   * @returns An array of {@linkcode BaseLine} objects containing:
-   *          - Success: The current page's content as an array of line objects
-   *          - Error: Never throws or returns an error
-   */
   /** Get all lines in the current document
    * 
    * @returns Array of BaseLine objects representing document lines
-   * @public
-   */
-  /** Get the lines in the current page
-   * @returns Array of BaseLine objects representing the page content
-   * @public
    */
   get lines(): BaseLine[];
 
@@ -205,45 +165,19 @@ export declare class Cursor extends BaseStore<
    *          - Success: The current page's metadata and content
    *          - Error: Never throws or returns an error
    */
-  /** Get the current page object
-   * 
-   * @returns The Page object representing the current document
-   * @public
-   */
-  /** Get the current page instance
-   * 
-   * @returns The current Page instance
-   * @public
-   */
-  /** Get the current page
-   * @returns The Page object representing the current page
-   * @public
-   */
   get page(): Page;
 
-  /** Move the cursor up one line
-   * @private
-   */
+  /** Move the cursor up one line */
   private goUp(): void;
-  /** Move the cursor up one page
-   * @private
-   */
+  /** Move the cursor up one page */
   private goPageUp(): void;
-  /** Move the cursor down one line
-   * @private
-   */
+  /** Move the cursor down one line */
   private goDown(): void;
-  /** Move cursor to the next page
-   * @private
-   */
+  /** Move cursor to the next page */
   private goPageDown(): void;
-  /** Get the start position of the next line
-   * @private
-   */
+  /** Get the start position of the next line */
   private getNextLineHead(): void;
-  /** Get the end position of the previous line
-   * @private
-   */
+  /** Get the end position of the previous line */
   private getPrevLineTail(): void;
   /** Move cursor backward one character
    * @param init - Optional configuration object
@@ -256,21 +190,15 @@ export declare class Cursor extends BaseStore<
    * @param init.scrollInView - Whether to scroll the view to keep cursor visible
    */
   private goForward(init?: { scrollInView: boolean }): void;
-  /** Move cursor one character left
-   * @private
-   */
+  /** Move cursor one character left */
   private goLeft(): void;
-  /** Move cursor one character right
-   * @private
-   */
+  /** Move cursor one character right */
   private goRight(): void;
   /** Jump to the first character of the title */
   private goTop(): void;
   /** Jump to the end of the last line */
   private goBottom(): void;
-  /** Move cursor to the start of the current word
-   * @private
-   */
+  /** Move cursor to the start of the current word */
   private goWordHead(): void;
   /** Get the position of the next word's start
    * @returns A {@linkcode Position} containing:
@@ -278,9 +206,7 @@ export declare class Cursor extends BaseStore<
    *          - Error: Never throws or returns an error
    */
   private getWordHead(): Position;
-  /** Move cursor to the end of the current word
-   * @private
-   */
+  /** Move cursor to the end of the current word */
   private goWordTail(): void;
   /** Get the position of the previous word's end
    * @returns A {@linkcode Position} containing:
@@ -296,16 +222,11 @@ export declare class Cursor extends BaseStore<
   /** Jump to the end of the current line */
   private goLineTail(): void;
 
-  /** Synchronize cursor state
-   * @private
-   */
+  /** Synchronize cursor state */
   private sync(): void;
-  /** Immediately synchronize cursor state
-   * @private
-   */
+  /** Immediately synchronize cursor state */
   private syncNow(): void;
   /** Update the temporary horizontal cursor position
-   * @private
    * @returns The updated horizontal position
    */
   private updateTemporalHorizontalPoint(): number;

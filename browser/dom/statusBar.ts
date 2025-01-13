@@ -4,8 +4,6 @@ import { statusBar } from "./dom.ts";
  * 
  * Provides methods to manage the status bar message display
  * and cleanup resources when no longer needed.
- * 
- * @public
  */
 export interface UseStatusBarResult {
   /** Display information in the acquired status bar section

@@ -9,8 +9,6 @@ declare const scrapbox: Scrapbox;
 /** Options for opening Scrapbox pages
  * 
  * Configuration options for controlling how pages are opened.
- * 
- * @public
  */
 export interface OpenOptions {
   /** line id */

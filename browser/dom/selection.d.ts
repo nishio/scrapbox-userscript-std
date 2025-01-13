@@ -5,22 +5,6 @@ import type { Position } from "./position.ts";
  * 
  * Represents a range of selected text with start and end positions.
  * Used for managing text selection operations in the editor.
- * 
- * @public
- */
-/** Text selection range in the editor
- * 
- * Represents a range of selected text with start and end positions.
- * Used for managing text selection operations in the editor.
- * 
- * @public
- */
-/** Text selection range in the editor
- * 
- * Represents a range of selected text with start and end positions.
- * Used for managing text selection operations in the editor.
- * 
- * @public
  */
 export interface Range {
   start: Position;
@@ -31,30 +15,16 @@ export interface Range {
  * 
  * Handles text selection operations and maintains selection state.
  * Extends BaseStore for event handling capabilities.
- * 
- * @public
- */
-/** Selection management class for the editor
- * 
- * Handles text selection operations and state management.
- * Extends BaseStore for event handling capabilities.
- * 
- * @public
  */
 export declare class Selection extends BaseStore<undefined> {
   constructor();
 
-  /**
-   * A class that manages text selection in Scrapbox pages.
-   * It handles selection ranges, provides utilities for text manipulation,
-   * and maintains the selection state across user interactions.
-   */
+
 
   /** Get the current page content as an array of lines */
   /** Get the currently selected lines
    * 
    * @returns Array of selected lines
-   * @public
    */
   get lines(): BaseLine[];
 
@@ -68,7 +38,6 @@ export declare class Selection extends BaseStore<undefined> {
    * 
    * @param init - Optional settings for range calculation
    * @returns The current selection range
-   * @public
    */
   getRange(init?: { normalizeOrder: boolean }): Range;
 
@@ -131,21 +100,15 @@ export declare class Selection extends BaseStore<undefined> {
   /** Adjust position to be within valid bounds
    * 
    * @param position - Position to validate and adjust
-   * @private
    */
   private fixPosition(position: Position): void;
 
   /** Ensure the current range is valid
    * 
    * Validates and adjusts the current selection range to be within bounds.
-   * 
-   * @private
    */
   private fixRange(): void;
 
-  /** Internal storage for selection range data
-   * 
-   * @private
-   */
+  /** Internal storage for selection range data */
   private data: Range;
 }
