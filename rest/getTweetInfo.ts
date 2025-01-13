@@ -9,14 +9,24 @@ import type {
   BadRequestError,
   InvalidURLError,
   SessionError,
-  TweetInfo,
-} from "@cosense/types/rest";
+} from "./errors.ts";
+import type { TweetInfo } from "./types.ts";
 import { cookie, getCSRFToken } from "./auth.ts";
 import { parseHTTPError } from "./parseHTTPError.ts";
 import { type HTTPError, responseIntoResult } from "./responseIntoResult.ts";
 import { type ExtendedOptions, setDefaults } from "./options.ts";
 import type { FetchError } from "./mod.ts";
 
+/** Possible errors when retrieving tweet information
+ * 
+ * Can occur when:
+ * - Session is invalid or expired ({@linkcode SessionError})
+ * - Tweet URL is malformed or invalid ({@linkcode InvalidURLError})
+ * - Request parameters are invalid ({@linkcode BadRequestError})
+ * - HTTP request fails ({@linkcode HTTPError})
+ * 
+ * @public
+ */
 export type TweetInfoError =
   | SessionError
   | InvalidURLError

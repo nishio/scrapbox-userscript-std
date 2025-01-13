@@ -21,6 +21,16 @@ import { range } from "../../range.ts";
  *
  * @param [holding=1000] - Duration of long press in milliseconds
  */
+/** Long press at the end of cursor line to gain focus
+ * 
+ * This function is specifically for mobile version of Scrapbox.
+ * It performs a long press at the end of the current cursor line
+ * to trigger the mobile keyboard focus.
+ * 
+ * @param [holding=1000] - Duration of long press in milliseconds
+ * @deprecated Use alternative focus methods for better compatibility
+ * @public
+ */
 export const focusEnd = async (holding = 1000): Promise<void> => {
   const target = getLineDOM(caret().position.line)
     ?.getElementsByClassName(

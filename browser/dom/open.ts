@@ -6,6 +6,12 @@ import {
 import type { Scrapbox } from "@cosense/types/userscript";
 declare const scrapbox: Scrapbox;
 
+/** Options for opening Scrapbox pages
+ * 
+ * Configuration options for controlling how pages are opened.
+ * 
+ * @public
+ */
 export interface OpenOptions {
   /** line id */
   id?: string;

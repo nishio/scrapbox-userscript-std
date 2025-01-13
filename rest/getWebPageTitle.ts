@@ -16,6 +16,23 @@ import { type HTTPError, responseIntoResult } from "./responseIntoResult.ts";
 import { type ExtendedOptions, setDefaults } from "./options.ts";
 import type { FetchError } from "./mod.ts";
 
+/** Possible errors when retrieving web page titles
+ * 
+ * Can occur when:
+ * - Session is invalid ({@linkcode SessionError})
+ * - URL is malformed ({@linkcode InvalidURLError})
+ * - Request is invalid ({@linkcode BadRequestError})
+ * - HTTP request fails ({@linkcode HTTPError})
+ * 
+ * @public
+ */
+/** Error type for web page title retrieval operations
+ * 
+ * Union type of all possible errors that can occur during
+ * web page title retrieval operations.
+ * 
+ * @public
+ */
 export type WebPageTitleError =
   | SessionError
   | InvalidURLError

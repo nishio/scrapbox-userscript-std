@@ -10,15 +10,24 @@ import type {
   NotFoundError,
   NotLoggedInError,
   NotMemberError,
+} from "./errors.ts";
+import type {
   ProjectSearchResult,
   SearchResult,
-} from "@cosense/types/rest";
+} from "./types.ts";
 import { cookie } from "./auth.ts";
 import { parseHTTPError } from "./parseHTTPError.ts";
 import { type HTTPError, responseIntoResult } from "./responseIntoResult.ts";
 import { type BaseOptions, setDefaults } from "./options.ts";
 import type { FetchError } from "./mod.ts";
 
+/** Possible errors when searching for pages
+ * 
+ * Includes errors for:
+ * - Missing query parameters
+ * - Network/HTTP issues
+ * - Authentication failures
+ */
 export type SearchForPagesError =
   | NotFoundError
   | NotMemberError
@@ -64,6 +73,15 @@ export const searchForPages = async (
   );
 };
 
+/** Possible errors when searching joined projects
+ * 
+ * Can occur when:
+ * - User not logged in
+ * - Search query invalid
+ * - HTTP request fails
+ * 
+ * @public
+ */
 export type SearchForJoinedProjectsError =
   | NotLoggedInError
   | NoQueryError
@@ -108,6 +126,12 @@ export const searchForJoinedProjects = async (
   );
 };
 
+/** Possible errors when searching watch list
+ * 
+ * Same error types as {@linkcode SearchForJoinedProjectsError}
+ * 
+ * @public
+ */
 export type SearchForWatchListError = SearchForJoinedProjectsError;
 
 /** Search within a list of watched projects

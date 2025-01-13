@@ -1,5 +1,12 @@
 import { statusBar } from "./dom.ts";
 
+/** Result type for the useStatusBar hook
+ * 
+ * Provides methods to manage the status bar message display
+ * and cleanup resources when no longer needed.
+ * 
+ * @public
+ */
 export interface UseStatusBarResult {
   /** Display information in the acquired status bar section
    *
@@ -34,10 +41,25 @@ export const useStatusBar = (): UseStatusBarResult => {
   };
 };
 
+/** A group of status bar items that should be displayed together
+ * 
+ * Used to organize multiple status bar items into a logical group
+ * that will be rendered together with consistent styling.
+ */
 export interface ItemGroup {
+  /** Identifies this as a group of items */
   type: "group";
+
+  /** The status bar items contained in this group */
   items: Item[];
 }
+/** A status bar item that can be displayed
+ * 
+ * Can be one of:
+ * - An icon (spinner, check-circle, or warning triangle)
+ * - A text item
+ * - A group of items
+ */
 export type Item =
   | {
     type: "spinner" | "check-circle" | "exclamation-triangle";

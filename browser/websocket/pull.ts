@@ -20,7 +20,7 @@ import {
 import { getProfile } from "../../rest/profile.ts";
 import { getProject } from "../../rest/project.ts";
 import type { HTTPError } from "../../rest/responseIntoResult.ts";
-import type { AbortError, NetworkError } from "../../rest/robustFetch.ts";
+import type { AbortError, NetworkError } from "../../rest/errors.ts";
 import type { BaseOptions } from "../../rest/options.ts";
 
 /** Extended page metadata required for WebSocket operations

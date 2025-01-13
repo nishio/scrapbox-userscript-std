@@ -3,9 +3,11 @@ import type {
   NotFoundError,
   NotLoggedInError,
   NotMemberError,
+} from "./errors.ts";
+import type {
   PageSnapshotList,
   PageSnapshotResult,
-} from "@cosense/types/rest";
+} from "./types.ts";
 import { cookie } from "./auth.ts";
 import { type BaseOptions, setDefaults } from "./options.ts";
 import { parseHTTPError } from "./parseHTTPError.ts";
@@ -23,7 +25,12 @@ import type { FetchError } from "./mod.ts";
  *
  * Extends {@linkcode ErrorLike} with a specific error name for invalid snapshot IDs.
  */
+/** Error thrown when a page snapshot ID is invalid
+ * 
+ * @public
+ */
 export interface InvalidPageSnapshotIdError extends ErrorLike {
+  /** Always "InvalidPageSnapshotIdError" to identify this error type */
   name: "InvalidPageSnapshotIdError";
 }
 

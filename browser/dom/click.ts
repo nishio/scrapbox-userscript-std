@@ -1,12 +1,36 @@
 import { delay } from "@std/async/delay";
 
 /** the options for `click()` */
+/** Options for simulating mouse click events
+ * 
+ * Configures the properties of a simulated mouse click including position,
+ * mouse button, and modifier keys.
+ */
 export interface ClickOptions {
+  /** Mouse button to simulate (0 = left, 1 = middle, 2 = right)
+   * @default {0}
+   */
   button?: number;
+
+  /** X coordinate of the click position in client coordinates */
   X: number;
+
+  /** Y coordinate of the click position in client coordinates */
   Y: number;
+
+  /** Whether the Shift key is pressed during the click
+   * @default {false}
+   */
   shiftKey?: boolean;
+
+  /** Whether the Control key is pressed during the click
+   * @default {false}
+   */
   ctrlKey?: boolean;
+
+  /** Whether the Alt key is pressed during the click
+   * @default {false}
+   */
   altKey?: boolean;
 }
 
@@ -35,7 +59,15 @@ export const click = async (
   await delay(10);
 };
 
+/** Options for simulating mouse hold-down events
+ * 
+ * Extends {@linkcode ClickOptions} with additional configuration for
+ * holding down the mouse button.
+ */
 export interface HoldDownOptions extends ClickOptions {
+  /** Duration to hold the mouse button down in milliseconds
+   * @default {1000}
+   */
   holding?: number;
 }
 

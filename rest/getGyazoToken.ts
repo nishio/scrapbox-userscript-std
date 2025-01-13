@@ -12,6 +12,12 @@ import { type HTTPError, responseIntoResult } from "./responseIntoResult.ts";
 import { type BaseOptions, setDefaults } from "./options.ts";
 import type { FetchError } from "./mod.ts";
 
+/** Options for retrieving a Gyazo API token
+ * 
+ * Configuration options for the Gyazo token endpoint.
+ * 
+ * @public
+ */
 export interface GetGyazoTokenOptions extends BaseOptions {
   /** The team name for Gyazo Teams
    *
@@ -32,6 +38,14 @@ export interface GetGyazoTokenOptions extends BaseOptions {
   gyazoTeamsName?: string;
 }
 
+/** Possible errors when retrieving a Gyazo token
+ * 
+ * Can occur when:
+ * - User not logged in ({@linkcode NotLoggedInError})
+ * - HTTP request fails ({@linkcode HTTPError})
+ * 
+ * @public
+ */
 export type GyazoTokenError = NotLoggedInError | HTTPError;
 
 /** Retrieve an OAuth access token for uploading images to Gyazo

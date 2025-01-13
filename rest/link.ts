@@ -19,20 +19,55 @@ import { type BaseOptions, setDefaults } from "./options.ts";
 import type { FetchError } from "./mod.ts";
 
 /** Error that occurs when an invalid followingId is provided for pagination */
+/** Error thrown when an invalid following ID is provided
+ * 
+ * This error occurs when attempting to follow a link with an invalid ID.
+ * 
+ * @public
+ */
 export interface InvalidFollowingIdError extends ErrorLike {
+  /** Always "InvalidFollowingIdError" to identify this error type */
   name: "InvalidFollowingIdError";
 }
 
+/** Options for retrieving linked pages
+ * 
+ * Extends the base options with additional parameters specific to
+ * the links endpoint.
+ */
 export interface GetLinksOptions extends BaseOptions {
   /** ID indicating the next list of links */
   followingId?: string;
 }
 
+/** Result from retrieving linked pages
+ * 
+ * Contains the list of pages and a cursor for pagination.
+ * Used to represent search results and link listings.
+ * 
+ * @public
+ */
 export interface GetLinksResult {
+  /** Array of pages that match the search criteria */
   pages: SearchedTitle[];
+  /** Cursor for retrieving the next batch of results */
   followingId: string;
 }
 
+/** Possible errors when retrieving linked pages
+ * 
+ * Includes errors for:
+ * - Invalid pagination cursors
+ * - Network/HTTP issues
+ * - Authentication failures
+ */
+/** Error type for link-related operations
+ * 
+ * Union type of all possible errors that can occur during
+ * link operations.
+ * 
+ * @public
+ */
 export type LinksError =
   | NotFoundError
   | NotLoggedInError
@@ -56,6 +91,8 @@ export type LinksError =
  *            - {@linkcode InvalidFollowingIdError}: Invalid pagination ID
  *            - {@linkcode HTTPError}: Network or server errors
  *            - {@linkcode FetchError}: Request failed
+ * 
+ * @public
  */
 export interface GetLinks {
   (

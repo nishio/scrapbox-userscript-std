@@ -4,12 +4,17 @@ import {
   type Result,
   unwrapOk,
 } from "option-t/plain_result";
-import type { GuestUser, MemberUser } from "@cosense/types/rest";
+import type { GuestUser, MemberUser } from "./types.ts";
 import { cookie } from "./auth.ts";
 import { type HTTPError, responseIntoResult } from "./responseIntoResult.ts";
-import type { FetchError } from "./robustFetch.ts";
+import type { FetchError } from "./errors.ts";
 import { type BaseOptions, setDefaults } from "./options.ts";
 
+/** Interface for retrieving user profile information
+ * 
+ * Provides methods to fetch and parse the current user's profile data
+ * from the Scrapbox API, handling both member and guest users.
+ */
 export interface GetProfile {
   /** Constructs a request for the `/api/users/me endpoint`
    *
@@ -41,6 +46,11 @@ export interface GetProfile {
   >;
 }
 
+/** Possible errors that can occur when fetching profile data
+ * 
+ * Currently only includes network/HTTP errors, as other error types
+ * (like authentication) are handled at a different level.
+ */
 export type ProfileError = HTTPError;
 
 const getProfile_toRequest: GetProfile["toRequest"] = (
@@ -59,6 +69,11 @@ const getProfile_fromResponse: GetProfile["fromResponse"] = (response) =>
     async (res) => (await res.json()) as MemberUser | GuestUser,
   );
 
+/** Factory function that creates a profile fetcher
+ * 
+ * Creates an instance of the GetProfile interface with methods
+ * configured for the current environment.
+ */
 export const getProfile: GetProfile = /* @__PURE__ */ (() => {
   const fn: GetProfile = async (init) => {
     const { fetch, ...rest } = setDefaults(init ?? {});

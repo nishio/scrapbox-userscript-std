@@ -9,8 +9,10 @@ import type {
   NotFoundError,
   NotLoggedInError,
   NotMemberError,
-  Page,
-} from "@cosense/types/rest";
+  AbortError,
+  NetworkError,
+} from "../../rest/errors.ts";
+import type { Page } from "@cosense/types/rest";
 import { delay } from "@std/async/delay";
 import {
   createErr,
@@ -22,7 +24,6 @@ import {
   unwrapOk,
 } from "option-t/plain_result";
 import type { HTTPError } from "../../rest/responseIntoResult.ts";
-import type { AbortError, NetworkError } from "../../rest/robustFetch.ts";
 import type { TooLongURIError } from "../../rest/pages.ts";
 import type {
   SocketIOServerDisconnectError,
@@ -53,9 +54,13 @@ export interface PushOptions {
  * This error indicates that the maximum number of retry attempts was
  * reached without successfully applying the changes, usually due to
  * concurrent modifications or persistent conflicts.
+ * 
+ * @public
  */
 export interface RetryError {
+  /** Always "RetryError" to identify this error type */
   name: "RetryError";
+  /** Error message with retry details */
   message: string;
   /** Number of attempts made before giving up */
   attempts: number;
@@ -65,6 +70,12 @@ export interface RetryError {
  *
  * This interface extends the basic Page type with additional identifiers
  * needed for real-time collaboration and page modifications.
+ */
+/** Metadata for pushed page changes
+ * 
+ * Contains information about a page that has been modified.
+ * 
+ * @public
  */
 export interface PushMetadata extends Page {
   /** Unique identifier of the project containing the page */
@@ -77,8 +88,11 @@ export interface PushMetadata extends Page {
  *
  * This error type is used when the push operation encounters an
  * unexpected state or receives an invalid response.
+ * 
+ * @public
  */
 export interface UnexpectedError extends ErrorLike {
+  /** Always "UnexpectedError" to identify this error type */
   name: "UnexpectedError";
 }
 
@@ -92,6 +106,28 @@ export interface UnexpectedError extends ErrorLike {
  * - Authorization errors ({@linkcode NotMemberError})
  * - Resource errors ({@linkcode NotFoundError}, {@linkcode TooLongURIError})
  * - Network errors ({@linkcode NetworkError}, {@linkcode AbortError}, {@linkcode HTTPError})
+ */
+/** Comprehensive error type for push operations
+ * 
+ * This union type includes all possible errors that may occur during
+ * a push operation, including:
+ * - Operation errors (RetryError, UnexpectedError)
+ * - WebSocket errors (SocketIOServerDisconnectError, UnexpectedRequestError)
+ * - Authentication errors (NotLoggedInError)
+ * - Authorization errors (NotMemberError)
+ * - Resource errors (NotFoundError, TooLongURIError)
+ * - Network errors (NetworkError, AbortError, HTTPError)
+ * 
+ * @public
+ */
+/** Error type for WebSocket push operations
+ * 
+ * Combines various error types that can occur during WebSocket push operations.
+ * 
+ * @public
+ */
+/** Possible errors that can occur during WebSocket push operations
+ * @public
  */
 export type PushError =
   | RetryError
@@ -120,6 +156,7 @@ export type PushError =
  *                - `"NotFastForwardError"`: Concurrent modification detected
  *                - `"DuplicateTitleError"`: Page title already exists
  * @returns Array of changes to apply, or empty array to cancel the push
+ * @public
  */
 export type CommitMakeHandler = (
   page: PushMetadata,

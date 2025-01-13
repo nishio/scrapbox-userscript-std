@@ -1,7 +1,7 @@
 import { createOk, mapForResult, type Result } from "option-t/plain_result";
 import { getProfile } from "./profile.ts";
 import type { HTTPError } from "./responseIntoResult.ts";
-import type { AbortError, NetworkError } from "./robustFetch.ts";
+import type { AbortError, NetworkError } from "./errors.ts";
 import type { ExtendedOptions } from "./options.ts";
 
 /** Create a cookie string for HTTP headers

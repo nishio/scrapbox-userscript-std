@@ -6,8 +6,17 @@ import { suggestUnDupTitle } from "./suggestUnDupTitle.ts";
 import type { Result } from "option-t/plain_result";
 import type { Socket } from "socket.io-client";
 
+/** Options for configuring the patch operation
+ * @see {@linkcode PushOptions} for available configuration options
+ */
 export type PatchOptions = PushOptions;
 
+/** Metadata for patched page changes
+ * 
+ * Contains information about a page that has been modified via patch operation.
+ * 
+ * @public
+ */
 export interface PatchMetadata extends Page {
   /** Number of retry attempts for page modification
    *

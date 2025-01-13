@@ -1,11 +1,3 @@
-import type {
-  ErrorLike,
-  NotFoundError,
-  NotLoggedInError,
-  NotMemberError,
-  Page,
-  PageList,
-} from "@cosense/types/rest";
 import { cookie } from "./auth.ts";
 import { parseHTTPError } from "./parseHTTPError.ts";
 import { encodeTitleURI } from "../title.ts";
@@ -18,18 +10,40 @@ import {
 } from "option-t/plain_result";
 import { unwrapOrForMaybe } from "option-t/maybe";
 import { type HTTPError, responseIntoResult } from "./responseIntoResult.ts";
-import type { FetchError } from "./robustFetch.ts";
+import type {
+  ErrorLike,
+  NotFoundError,
+  NotLoggedInError,
+  NotMemberError,
+  FetchError,
+} from "./errors.ts";
+import type { Page, PageList } from "./types.ts";
 
 /** Options for {@linkcode getPage} */
+/** Options for retrieving a single page
+ * @extends {BaseOptions}
+ */
 export interface GetPageOption extends BaseOptions {
-  /** use `followRename` */
+  /** Whether to follow page renames
+   * @default {true}
+   */
   followRename?: boolean;
 
-  /** project ids to get External links */
+  /** Project IDs to include when fetching external links
+   * @example ["project1", "project2"]
+   */
   projects?: string[];
 }
 
+/** Error thrown when the generated URI exceeds length limits
+ * 
+ * This error occurs when constructing API requests where the URL
+ * becomes too long, typically due to many parameters or long values.
+ * 
+ * @property name - Always "TooLongURIError" to identify this error type
+ */
 export interface TooLongURIError extends ErrorLike {
+  /** Identifier for this error type */
   name: "TooLongURIError";
 }
 
@@ -80,6 +94,17 @@ const getPage_fromResponse: GetPage["fromResponse"] = async (res) =>
     },
   );
 
+/** Interface for retrieving a single page's content
+ * 
+ * Provides methods to fetch and parse page data from the Scrapbox API,
+ * including handling various error conditions.
+ */
+/** Interface for page retrieval operations
+ * 
+ * Defines the structure for retrieving page data from the API.
+ * 
+ * @public
+ */
 export interface GetPage {
   /** Constructs a request for the `/api/pages/:project/:title` endpoint
    *
@@ -114,6 +139,24 @@ export interface GetPage {
   ): Promise<Result<Page, PageError | FetchError>>;
 }
 
+/** Possible errors that can occur when fetching page data
+ * 
+ * Includes errors for:
+ * - Not found pages
+ * - Network/HTTP errors
+ * - Authentication failures
+ */
+/** Possible errors that can occur when fetching page data
+ * 
+ * Union type of all possible error types that can be returned when
+ * attempting to fetch a single page's data.
+ * 
+ * @see {@link NotFoundError} Page not found
+ * @see {@link NotLoggedInError} Authentication required
+ * @see {@link NotMemberError} User lacks access
+ * @see {@link TooLongURIError} URI too long
+ * @see {@link HTTPError} Other HTTP errors
+ */
 export type PageError =
   | NotFoundError
   | NotLoggedInError
@@ -123,9 +166,21 @@ export type PageError =
 
 /** Retrieves JSON data for a specified page
  *
- * @param project The project name containing the desired page
- * @param title The page title to retrieve (case insensitive)
- * @param options Additional configuration options for the request
+ * Fetches page content and metadata from the Scrapbox API.
+ * Handles various error conditions and authentication requirements.
+ *
+ * @param project - The project name containing the desired page
+ * @param title - The page title to retrieve (case insensitive)
+ * @param options - Additional configuration options for the request
+ * @returns A {@linkcode Result}<{@linkcode Page}, {@linkcode PageError | FetchError}> containing:
+ *          - Success: The page data
+ *          - Error: One of several possible errors:
+ *            - {@linkcode NotFoundError}: Page not found
+ *            - {@linkcode NotLoggedInError}: Authentication required
+ *            - {@linkcode NotMemberError}: User lacks access
+ *            - {@linkcode TooLongURIError}: URI too long
+ *            - {@linkcode HTTPError}: Other HTTP errors
+ *            - {@linkcode FetchError}: Network or abort errors
  */
 export const getPage: GetPage = /* @__PURE__ */ (() => {
   const fn: GetPage = async (
@@ -147,32 +202,39 @@ export const getPage: GetPage = /* @__PURE__ */ (() => {
 })();
 
 /** Options for {@linkcode listPages} */
+/** Options for listing pages in a project
+ * @extends {BaseOptions}
+ */
 export interface ListPagesOption extends BaseOptions {
-  /** the sort of page list to return
-   *
+  /** How to sort the returned page list
    * @default {"updated"}
    */
   sort?:
-    | "updatedWithMe"
-    | "updated"
-    | "created"
-    | "accessed"
-    | "pageRank"
-    | "linked"
-    | "views"
-    | "title";
-  /** the index getting page list from
-   *
+    | "updatedWithMe" /** Sort by pages updated by the current user */
+    | "updated" /** Sort by last update time */
+    | "created" /** Sort by creation time */
+    | "accessed" /** Sort by last access time */
+    | "pageRank" /** Sort by page rank */
+    | "linked" /** Sort by number of incoming links */
+    | "views" /** Sort by view count */
+    | "title"; /** Sort alphabetically by title */
+
+  /** Number of pages to skip (for pagination)
    * @default {0}
    */
   skip?: number;
-  /** threshold of the length of page list
-   *
+
+  /** Maximum number of pages to return
    * @default {100}
    */
   limit?: number;
 }
 
+/** Interface for listing multiple pages in a project
+ * 
+ * Provides methods to fetch and parse page listings from the Scrapbox API,
+ * with support for pagination and error handling.
+ */
 export interface ListPages {
   /** Constructs a request for the `/api/pages/:project` endpoint
    *
@@ -197,12 +259,26 @@ export interface ListPages {
    */
   fromResponse: (res: Response) => Promise<Result<PageList, ListPagesError>>;
 
+  /** List pages in a project
+   * 
+   * @param project - The project name to list pages from
+   * @param options - Additional configuration options
+   * @returns A Result containing either the page list or an error
+   * @public
+   */
   (
     project: string,
     options?: ListPagesOption,
   ): Promise<Result<PageList, ListPagesError | FetchError>>;
 }
 
+/** Possible errors that can occur when listing pages
+ * 
+ * Includes errors for:
+ * - Network/HTTP issues
+ * - Authentication failures
+ * - Invalid parameters
+ */
 export type ListPagesError =
   | NotFoundError
   | NotLoggedInError
@@ -243,8 +319,18 @@ const listPages_fromResponse: ListPages["fromResponse"] = async (res) =>
 
 /** Lists pages from a specified project
  *
- * @param project The project name to list pages from
- * @param options Configuration options for pagination and sorting
+ * Retrieves a paginated list of pages from a Scrapbox project.
+ * Supports sorting by various criteria and pagination options.
+ *
+ * @param project - The project name to list pages from
+ * @param options - Configuration options for pagination and sorting
+ * @returns A {@linkcode Result}<{@linkcode PageList}, {@linkcode ListPagesError | FetchError}> containing:
+ *          - Success: The list of pages with metadata
+ *          - Error: One of several possible errors:
+ *            - {@linkcode NotLoggedInError}: Authentication required
+ *            - {@linkcode NotMemberError}: User lacks access
+ *            - {@linkcode HTTPError}: Other HTTP errors
+ *            - {@linkcode FetchError}: Network or abort errors
  */
 export const listPages: ListPages = /* @__PURE__ */ (() => {
   const fn: ListPages = async (

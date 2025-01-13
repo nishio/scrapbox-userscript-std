@@ -7,12 +7,14 @@ import {
   unwrapOk,
 } from "option-t/plain_result";
 import type {
-  ExportedData,
-  ImportedData,
   NotFoundError,
   NotLoggedInError,
   NotPrivilegeError,
-} from "@cosense/types/rest";
+} from "./errors.ts";
+import type {
+  ExportedData,
+  ImportedData,
+} from "./types.ts";
 import { cookie, getCSRFToken } from "./auth.ts";
 import { parseHTTPError } from "./parseHTTPError.ts";
 import { type HTTPError, responseIntoResult } from "./responseIntoResult.ts";
@@ -23,6 +25,11 @@ import {
 } from "./options.ts";
 import type { FetchError } from "./mod.ts";
 
+/** Possible errors when importing pages
+ * 
+ * Currently only includes network/HTTP errors, as other error types
+ * are handled at a different level.
+ */
 export type ImportPagesError = HTTPError;
 
 /** Import pages into a Scrapbox project
@@ -81,6 +88,13 @@ export const importPages = async (
   );
 };
 
+/** Possible errors when exporting pages
+ * 
+ * Includes errors for:
+ * - Insufficient privileges
+ * - Network/HTTP issues
+ * - Authentication failures
+ */
 export type ExportPagesError =
   | NotFoundError
   | NotPrivilegeError

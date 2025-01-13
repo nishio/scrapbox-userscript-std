@@ -49,6 +49,12 @@ const getCodeBlock_fromResponse: GetCodeBlock["fromResponse"] = async (res) =>
     (res) => res.text(),
   );
 
+/** Interface for retrieving code blocks from Scrapbox pages
+ * 
+ * Provides methods to fetch code block content from pages.
+ * 
+ * @public
+ */
 export interface GetCodeBlock {
   /** Build a request for `/api/code/:project/:title/:filename`
    *
@@ -85,6 +91,16 @@ export interface GetCodeBlock {
     options?: BaseOptions,
   ): Promise<Result<string, CodeBlockError | FetchError>>;
 }
+/** Possible errors when retrieving code blocks
+ * 
+ * Can occur when:
+ * - Code block not found
+ * - User not logged in
+ * - User lacks access
+ * - HTTP request fails
+ * 
+ * @public
+ */
 export type CodeBlockError =
   | NotFoundError
   | NotLoggedInError

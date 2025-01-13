@@ -3,6 +3,8 @@
  * @module
  */
 
+export * from "./errors.ts";
+export * from "./types.ts";
 export * from "./pages.ts";
 export * from "./table.ts";
 export * from "./project.ts";

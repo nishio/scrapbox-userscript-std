@@ -38,6 +38,21 @@ export const saveApiCache = async (
   return await cache.put(request, res);
 };
 
+/** Generate a cache name for storing API responses
+ * 
+ * Creates a cache name in the format "api-YYYY-MM-DD" where:
+ * - YYYY is the full year
+ * - MM is the zero-padded month (01-12)
+ * - DD is the zero-padded day (01-31)
+ * 
+ * This format ensures:
+ * 1. Cache names are chronologically sortable
+ * 2. Each day has its own cache storage
+ * 3. Old caches can be easily identified and cleaned up
+ * 
+ * @param date - Date to generate the cache name from
+ * @returns Cache name string in "api-YYYY-MM-DD" format
+ */
 export const generateCacheName = (date: Date): string =>
   `api-${date.getFullYear()}-${`${date.getMonth() + 1}`.padStart(2, "0")}-${
     `${date.getDate()}`.padStart(2, "0")

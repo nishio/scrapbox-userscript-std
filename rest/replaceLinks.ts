@@ -9,13 +9,22 @@ import type {
   NotFoundError,
   NotLoggedInError,
   NotMemberError,
-} from "@cosense/types/rest";
+} from "./errors.ts";
 import { cookie, getCSRFToken } from "./auth.ts";
 import { parseHTTPError } from "./parseHTTPError.ts";
 import { type HTTPError, responseIntoResult } from "./responseIntoResult.ts";
-import type { FetchError } from "./robustFetch.ts";
+import type { FetchError } from "./errors.ts";
 import { type ExtendedOptions, setDefaults } from "./options.ts";
 
+/** Possible errors when replacing links
+ * 
+ * Can occur when:
+ * - User not logged in
+ * - User lacks project access
+ * - HTTP request fails
+ * 
+ * @public
+ */
 export type ReplaceLinksError =
   | NotFoundError
   | NotLoggedInError

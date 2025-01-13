@@ -8,6 +8,8 @@ import {
  *
  * This interface represents the essential structure of a code block in Scrapbox,
  * containing only the information that can be reliably extracted from the page content.
+ * 
+ * @public
  */
 export interface TinyCodeBlock {
   /** The filename specified in the code block title.

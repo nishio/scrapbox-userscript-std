@@ -13,6 +13,7 @@ export interface Link {
  * Used to track navigation between two specific pages within Scrapbox
  */
 export interface PageTransitionContextLink {
+  /** Type identifier for page-to-page navigation */
   type: "page";
 
   /** Link to the source/origin page */
@@ -26,6 +27,7 @@ export interface PageTransitionContextLink {
  * Used to track navigation that originates from a full-text search
  */
 export interface PageTransitionContextQuery {
+  /** Type identifier for search-to-page navigation */
   type: "search";
 
   /** The search query used in the full-text search */
@@ -35,6 +37,11 @@ export interface PageTransitionContextQuery {
   to: Link;
 }
 
+/** Union type representing all possible page transition contexts
+ * 
+ * This type combines both page-to-page navigation ({@linkcode PageTransitionContextLink})
+ * and search-to-page navigation ({@linkcode PageTransitionContextQuery}) contexts.
+ */
 export type PageTransitionContext =
   | PageTransitionContextLink
   | PageTransitionContextQuery;

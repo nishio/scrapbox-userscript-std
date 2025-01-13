@@ -8,8 +8,11 @@ import { createErr, createOk, type Result } from "option-t/plain_result";
  * @property response - The original {@linkcode Response} object that caused the error
  */
 export interface HTTPError {
+  /** Always "HTTPError" to identify this error type */
   name: "HTTPError";
+  /** Error message with status code and details */
   message: string;
+  /** The HTTP response that caused the error */
   response: Response;
 }
 

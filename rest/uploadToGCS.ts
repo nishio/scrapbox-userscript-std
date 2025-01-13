@@ -18,7 +18,7 @@ import {
   unwrapOk,
 } from "option-t/plain_result";
 import { toResultOkFromMaybe } from "option-t/maybe";
-import type { FetchError } from "./robustFetch.ts";
+import type { FetchError } from "./errors.ts";
 import { type HTTPError, responseIntoResult } from "./responseIntoResult.ts";
 
 /** Metadata for the uploaded file */
@@ -30,6 +30,16 @@ export interface GCSFile {
   originalName: string;
 }
 
+/** Error type for Google Cloud Storage upload operations
+ * 
+ * Can occur when:
+ * - File not found ({@linkcode NotFoundError})
+ * - User not logged in ({@linkcode NotLoggedInError})
+ * - File size exceeds limits ({@linkcode FileCapacityError})
+ * - HTTP request fails ({@linkcode HTTPError})
+ * 
+ * @public
+ */
 export type UploadGCSError =
   | GCSError
   | NotFoundError
@@ -63,7 +73,18 @@ export const uploadToGCS = async (
 };
 
 /** Error that occurs when storage capacity is exceeded */
+/** Error thrown when storage capacity is exceeded
+ * 
+ * This error occurs when attempting to upload a file that would exceed
+ * the project's storage quota or size limits.
+ * 
+ * @public
+ */
+/** Error indicating file size or quota limits were exceeded
+ * @public
+ */
 export interface FileCapacityError extends ErrorLike {
+  /** Type identifier for file capacity errors */
   name: "FileCapacityError";
 }
 
@@ -140,7 +161,16 @@ const uploadRequest = async (
  *
  * The {@linkcode ErrorLike.message} field contains XML in [this format](https://cloud.google.com/storage/docs/xml-api/reference-status#http-status-and-error-codes)
  */
+/** Google Cloud Storage XML API error
+ * 
+ * Error returned by GCS when an upload operation fails.
+ * The {@linkcode ErrorLike.message} field contains XML in 
+ * [this format](https://cloud.google.com/storage/docs/xml-api/reference-status#http-status-and-error-codes)
+ * 
+ * @public
+ */
 export interface GCSError extends ErrorLike {
+  /** Type identifier for GCS errors */
   name: "GCSError";
 }
 

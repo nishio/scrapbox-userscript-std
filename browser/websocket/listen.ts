@@ -2,9 +2,19 @@ import type {
   NotFoundError,
   NotLoggedInError,
   NotMemberError,
-} from "@cosense/types/rest";
+  AbortError,
+  NetworkError,
+} from "../../rest/errors.ts";
+
+/** Re-export error types from rest/errors.ts */
+export type {
+  NotFoundError,
+  NotLoggedInError,
+  NotMemberError,
+  AbortError,
+  NetworkError,
+} from "../../rest/errors.ts";
 import type { HTTPError } from "../../rest/responseIntoResult.ts";
-import type { AbortError, NetworkError } from "../../rest/robustFetch.ts";
 import type { ScrapboxSocket } from "./socket.ts";
 import type { ListenEvents } from "./listen-events.ts";
 
@@ -13,11 +23,49 @@ export type {
   ProjectUpdatesStreamEvent,
 } from "./listen-events.ts";
 
+/** Configuration options for WebSocket event listeners
+ * 
+ * @property signal - Optional AbortSignal to control the listener's lifecycle
+ * @property once - If true, the listener will be removed after the first event
+ * 
+ * @example
+ * ```typescript
+ * const controller = new AbortController();
+ * listen(socket, "commit", handler, {
+ *   signal: controller.signal,
+ *   once: true
+ * });
+ * ```
+ */
 export interface ListenStreamOptions {
+  /** Signal for aborting the listener */
   signal?: AbortSignal;
+  /** Whether to listen only once and then stop */
   once?: boolean;
 }
 
+/** Possible errors that can occur during WebSocket stream operations
+ * 
+ * This type encompasses all possible error types that may occur when:
+ * - Connecting to the WebSocket server
+ * - Authenticating with Scrapbox
+ * - Accessing project resources
+ * - Network-related issues
+ * 
+ * @see {@linkcode NotFoundError} - When the requested resource doesn't exist
+ * @see {@linkcode NotLoggedInError} - When user authentication is required
+ * @see {@linkcode NotMemberError} - When user lacks project access
+ * @see {@linkcode NetworkError} - For connection/network issues
+ * @see {@linkcode AbortError} - When the operation is cancelled
+ * @see {@linkcode HTTPError} - For other HTTP-related errors
+ */
+/** Union type of all possible stream listening errors
+ * 
+ * Combines network and abort errors that can occur during
+ * WebSocket stream operations.
+ * 
+ * @public
+ */
 export type ListenStreamError =
   | NotFoundError
   | NotLoggedInError

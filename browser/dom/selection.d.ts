@@ -1,11 +1,46 @@
-import { type BaseLine, BaseStore } from "@cosense/types/userscript";
+import { type BaseLine, BaseStore } from "./types.ts";
 import type { Position } from "./position.ts";
 
+/** Text selection range in the editor
+ * 
+ * Represents a range of selected text with start and end positions.
+ * Used for managing text selection operations in the editor.
+ * 
+ * @public
+ */
+/** Text selection range in the editor
+ * 
+ * Represents a range of selected text with start and end positions.
+ * Used for managing text selection operations in the editor.
+ * 
+ * @public
+ */
+/** Text selection range in the editor
+ * 
+ * Represents a range of selected text with start and end positions.
+ * Used for managing text selection operations in the editor.
+ * 
+ * @public
+ */
 export interface Range {
   start: Position;
   end: Position;
 }
 
+/** Selection management class for the Scrapbox editor
+ * 
+ * Handles text selection operations and maintains selection state.
+ * Extends BaseStore for event handling capabilities.
+ * 
+ * @public
+ */
+/** Selection management class for the editor
+ * 
+ * Handles text selection operations and state management.
+ * Extends BaseStore for event handling capabilities.
+ * 
+ * @public
+ */
 export declare class Selection extends BaseStore<undefined> {
   constructor();
 
@@ -16,6 +51,11 @@ export declare class Selection extends BaseStore<undefined> {
    */
 
   /** Get the current page content as an array of lines */
+  /** Get the currently selected lines
+   * 
+   * @returns Array of selected lines
+   * @public
+   */
   get lines(): BaseLine[];
 
   /** Get the current selection range
@@ -23,6 +63,12 @@ export declare class Selection extends BaseStore<undefined> {
    * @param init Set `init.normalizeOrder` to `true` to ensure Range.start is
    *            the beginning of the selection (useful for consistent text processing)
    * @returns The current {@linkcode Range} object representing the selection
+   */
+  /** Get the current selection range
+   * 
+   * @param init - Optional settings for range calculation
+   * @returns The current selection range
+   * @public
    */
   getRange(init?: { normalizeOrder: boolean }): Range;
 
@@ -82,7 +128,24 @@ export declare class Selection extends BaseStore<undefined> {
    */
   hasSelectionAll(): boolean;
 
+  /** Adjust position to be within valid bounds
+   * 
+   * @param position - Position to validate and adjust
+   * @private
+   */
   private fixPosition(position: Position): void;
+
+  /** Ensure the current range is valid
+   * 
+   * Validates and adjusts the current selection range to be within bounds.
+   * 
+   * @private
+   */
   private fixRange(): void;
+
+  /** Internal storage for selection range data
+   * 
+   * @private
+   */
   private data: Range;
 }

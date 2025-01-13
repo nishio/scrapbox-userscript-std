@@ -53,12 +53,29 @@ const getTable_fromResponse: GetTable["fromResponse"] = async (res) =>
     (res) => res.text(),
   );
 
+/** Error type for table-related operations
+ * 
+ * Union type of all possible errors that can occur during
+ * table operations, including:
+ * - Table not found ({@linkcode NotFoundError})
+ * - User not logged in ({@linkcode NotLoggedInError})
+ * - User lacks access ({@linkcode NotMemberError})
+ * - HTTP request fails ({@linkcode HTTPError})
+ * 
+ * @public
+ */
 export type TableError =
   | NotFoundError
   | NotLoggedInError
   | NotMemberError
   | HTTPError;
 
+/** Interface for retrieving table data from Scrapbox pages
+ * 
+ * Provides methods to fetch CSV table data from Scrapbox pages.
+ * 
+ * @public
+ */
 export interface GetTable {
   /** Build a request for `/api/table/:project/:title/:filename.csv` endpoint
    *

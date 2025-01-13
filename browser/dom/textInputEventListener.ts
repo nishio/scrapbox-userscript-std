@@ -98,6 +98,16 @@ export const addTextInputEventListener = <K extends keyof HTMLElementEventMap>(
   textinput.addEventListener<K>(name, listener, options);
 };
 
+/** Remove a previously added text input event listener
+ * 
+ * Removes an event listener that was added using {@linkcode addTextInputEventListener}.
+ * Handles cleanup of both regular and once-only listeners.
+ * 
+ * @param name - The event type to remove
+ * @param listener - The callback function to remove
+ * @param options - The same options object used when adding the listener
+ * @public
+ */
 export const removeTextInputEventListener = <
   K extends keyof HTMLElementEventMap,
 >(

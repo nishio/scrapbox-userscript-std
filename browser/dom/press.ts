@@ -1,11 +1,34 @@
 import { textInput } from "./dom.ts";
 
-/** the options for `press()` */
+/** Options for simulating keyboard events in the editor
+ * 
+ * Configures which modifier keys are pressed during the key event.
+ * Used by the {@linkcode press} function to simulate keyboard input.
+ */
 export interface PressOptions {
+  /** Whether the Shift key is pressed
+   * @default {false}
+   */
   shiftKey?: boolean;
+
+  /** Whether the Control key is pressed
+   * @default {false}
+   */
   ctrlKey?: boolean;
+
+  /** Whether the Alt key is pressed
+   * @default {false}
+   */
   altKey?: boolean;
+
+  /** Whether the Meta/Command key is pressed
+   * @default {false}
+   */
   metaKey?: boolean;
+
+  /** Whether to ensure no modifier keys are pressed
+   * @default {false}
+   */
   noModifiedKeys?: boolean;
 }
 
@@ -36,7 +59,15 @@ export const press = (
   textarea.dispatchEvent(new KeyboardEvent("keyup", options));
 };
 
-export type KeyName = keyof typeof KEYCODE_MAP;
+/** Map of key names to their corresponding key codes
+ * 
+ * Contains mappings for:
+ * - Special keys (Enter, Tab, etc.)
+ * - Alphabets (a-z, A-Z)
+ * - Numbers (0-9)
+ * - Function keys (F1-F12)
+ * - Symbols and special characters
+ */
 const KEYCODE_MAP = {
   Backspace: 8,
   Tab: 9,
@@ -152,3 +183,13 @@ const KEYCODE_MAP = {
   "~": 222,
   "_": 226, // Note: Without Shift, keyCode 226 represents '\' and cannot be distinguished from the backslash key
 };
+
+/** Export KEYCODE_MAP for use in other modules */
+export { KEYCODE_MAP };
+
+/** Valid key names that can be used with the press function
+ * 
+ * @see {@linkcode press} for usage with these key names
+ * @see {@linkcode KEYCODE_MAP} for the full list of supported keys
+ */
+export type KeyName = keyof typeof KEYCODE_MAP;

@@ -6,20 +6,27 @@ import {
   unwrapOk,
 } from "option-t/plain_result";
 import type {
-  MemberProject,
   NotFoundError,
   NotLoggedInError,
   NotMemberError,
+} from "./errors.ts";
+import type {
+  MemberProject,
   NotMemberProject,
   ProjectId,
   ProjectResponse,
-} from "@cosense/types/rest";
+} from "./types.ts";
 import { cookie } from "./auth.ts";
 import { parseHTTPError } from "./parseHTTPError.ts";
 import { type HTTPError, responseIntoResult } from "./responseIntoResult.ts";
-import type { FetchError } from "./robustFetch.ts";
+import type { FetchError } from "./errors.ts";
 import { type BaseOptions, setDefaults } from "./options.ts";
 
+/** Interface for retrieving project information
+ * 
+ * Provides methods to fetch and parse project metadata from the Scrapbox API,
+ * including handling various access levels and error conditions.
+ */
 export interface GetProject {
   /** Constructs a request for the `/api/project/:project` endpoint
    *
@@ -61,6 +68,13 @@ export interface GetProject {
   >;
 }
 
+/** Possible errors that can occur when fetching project data
+ * 
+ * Includes errors for:
+ * - Not found projects
+ * - Permission denied
+ * - Network/HTTP issues
+ */
 export type ProjectError =
   | NotFoundError
   | NotMemberError
@@ -129,6 +143,17 @@ export const getProject: GetProject = /* @__PURE__ */ (() => {
   return fn;
 })();
 
+/** Interface for listing accessible projects
+ * 
+ * Provides methods to fetch and parse the list of projects the user
+ * has access to, with support for different access levels.
+ */
+/** Interface for listing projects
+ * 
+ * Represents the structure for project listing operations.
+ * 
+ * @public
+ */
 export interface ListProjects {
   /** Constructs a request for the `/api/projects` endpoint
    *
@@ -138,6 +163,7 @@ export interface ListProjects {
    * @param projectIds - Array of project IDs to retrieve information for (must contain at least one ID)
    * @param init - Options including `connect.sid` (session ID) and other configuration
    * @returns A {@linkcode Request} object for fetching multiple projects' data
+   * @public
    */
   toRequest: (
     projectIds: ProjectId[],
@@ -155,17 +181,31 @@ export interface ListProjects {
    *          - Error: One of several possible errors:
    *            - {@linkcode NotFoundError}: Project not found
    *            - {@linkcode HTTPError}: Other HTTP errors
+   * @public
    */
   fromResponse: (
     res: Response,
   ) => Promise<Result<ProjectResponse, ListProjectsError>>;
 
+  /** Main function to list projects
+   * 
+   * @param projectIds - Array of project IDs to retrieve
+   * @param init - Options including connect.sid for authentication
+   * @returns A Result containing project data or error
+   * @public
+   */
   (
     projectIds: ProjectId[],
     init?: BaseOptions,
   ): Promise<Result<ProjectResponse, ListProjectsError | FetchError>>;
 }
 
+/** Possible errors that can occur when listing projects
+ * 
+ * Includes errors for:
+ * - Authentication required
+ * - Network/HTTP issues
+ */
 export type ListProjectsError = NotLoggedInError | HTTPError;
 
 const ListProject_toRequest: ListProjects["toRequest"] = (projectIds, init) => {

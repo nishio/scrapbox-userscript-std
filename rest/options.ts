@@ -1,4 +1,6 @@
-import { type RobustFetch, robustFetch } from "./robustFetch.ts";
+import { robustFetch } from "./robustFetch.ts";
+/** Re-export RobustFetch type from robustFetch.ts */
+export type { RobustFetch } from "./robustFetch.ts";
 
 /** Common options shared across all REST API endpoints
  *

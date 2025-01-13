@@ -1,6 +1,13 @@
 import { push, type PushError, type PushOptions } from "./push.ts";
 import type { Result } from "option-t/plain_result";
 
+/** Configuration options for deleting a page
+ * 
+ * Extends {@linkcode PushOptions} to provide configuration for the delete operation.
+ * Controls how the delete request is sent and handled.
+ * 
+ * @public
+ */
 export type DeletePageOptions = PushOptions;
 
 /** Delete a specified page whose title is `title` from a given `project`
