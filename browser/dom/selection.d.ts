@@ -1,11 +1,7 @@
 import { type BaseLine, BaseStore } from "./types.ts";
 import type { Position } from "./position.ts";
 
-/** Text selection range in the editor
- * 
- * Represents a range of selected text with start and end positions.
- * Used for managing text selection operations in the editor.
- */
+/** Text selection range in the editor */
 export interface Range {
   /** Starting position of the selection range */
   start: Position;
@@ -16,7 +12,6 @@ export interface Range {
 /** Selection management class for the Scrapbox editor
  * 
  * Handles text selection operations and maintains selection state.
- * Extends BaseStore for event handling capabilities.
  */
 export declare class Selection extends BaseStore<undefined> {
   constructor();
@@ -30,10 +25,7 @@ export declare class Selection extends BaseStore<undefined> {
   get lines(): BaseLine[];
 
   /** Get the current selection range
-   * 
-   * @param init - Optional settings for range calculation
-   * @param init.normalizeOrder - Set to `true` to ensure Range.start is
-   *                             the beginning of the selection
+   * @param init.normalizeOrder - Set to `true` to ensure Range.start is the beginning of the selection
    * @returns The current selection range
    */
   getRange(init?: { normalizeOrder: boolean }): Range;

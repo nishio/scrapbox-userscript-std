@@ -54,8 +54,6 @@ export interface PushOptions {
  * This error indicates that the maximum number of retry attempts was
  * reached without successfully applying the changes, usually due to
  * concurrent modifications or persistent conflicts.
- * 
- * @public
  */
 export interface RetryError {
   /** Always "RetryError" to identify this error type */
@@ -71,12 +69,6 @@ export interface RetryError {
  * This interface extends the basic Page type with additional identifiers
  * needed for real-time collaboration and page modifications.
  */
-/** Metadata for pushed page changes
- * 
- * Contains information about a page that has been modified.
- * 
- * @public
- */
 export interface PushMetadata extends Page {
   /** Unique identifier of the project containing the page */
   projectId: string;
@@ -88,8 +80,6 @@ export interface PushMetadata extends Page {
  *
  * This error type is used when the push operation encounters an
  * unexpected state or receives an invalid response.
- * 
- * @public
  */
 export interface UnexpectedError extends ErrorLike {
   /** Always "UnexpectedError" to identify this error type */
@@ -106,28 +96,6 @@ export interface UnexpectedError extends ErrorLike {
  * - Authorization errors ({@linkcode NotMemberError})
  * - Resource errors ({@linkcode NotFoundError}, {@linkcode TooLongURIError})
  * - Network errors ({@linkcode NetworkError}, {@linkcode AbortError}, {@linkcode HTTPError})
- */
-/** Comprehensive error type for push operations
- * 
- * This union type includes all possible errors that may occur during
- * a push operation, including:
- * - Operation errors (RetryError, UnexpectedError)
- * - WebSocket errors (SocketIOServerDisconnectError, UnexpectedRequestError)
- * - Authentication errors (NotLoggedInError)
- * - Authorization errors (NotMemberError)
- * - Resource errors (NotFoundError, TooLongURIError)
- * - Network errors (NetworkError, AbortError, HTTPError)
- * 
- * @public
- */
-/** Error type for WebSocket push operations
- * 
- * Combines various error types that can occur during WebSocket push operations.
- * 
- * @public
- */
-/** Possible errors that can occur during WebSocket push operations
- * @public
  */
 export type PushError =
   | RetryError
@@ -156,7 +124,6 @@ export type PushError =
  *                - `"NotFastForwardError"`: Concurrent modification detected
  *                - `"DuplicateTitleError"`: Page title already exists
  * @returns Array of changes to apply, or empty array to cancel the push
- * @public
  */
 export type CommitMakeHandler = (
   page: PushMetadata,

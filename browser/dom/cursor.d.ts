@@ -1,25 +1,11 @@
 /** @module cursor */
 
 import { BaseStore, type BaseLine } from "./types.ts";
-/** Re-export BaseStore for external use */
 export type { BaseStore } from "./types.ts";
 import type { Position } from "./position.ts";
 import type { Page } from "./page.d.ts";
 
-/** Options for configuring cursor position updates */
-export interface SetPositionOptions {
-  /** Whether to auto-scroll the page when the cursor moves outside the viewport
-   *
-   * @default {true}
-   */
-  scrollInView?: boolean;
-
-  /** Source of the cursor movement event
-   *
-   * `"mouse"` indicates the cursor was moved by mouse interaction
-   */
-  source?: "mouse";
-}
+export type { SetPositionOptions } from "./types.ts";
 
 /** Class for managing cursor operations in the Scrapbox editor
  * 
@@ -44,9 +30,7 @@ export declare class Cursor extends BaseStore<
   getPosition(): Position;
 
   /** Check if the cursor is currently visible
-   * @returns A {@linkcode boolean} indicating:
-   *          - Success: `true` if the cursor is visible, `false` otherwise
-   *          - Error: Never throws or returns an error
+   * @returns `true` if the cursor is visible, `false` otherwise
    */
   getVisible(): boolean;
 
@@ -84,16 +68,12 @@ export declare class Cursor extends BaseStore<
   fixPosition(): void;
 
   /** Check if the cursor is at the start of a line
-   * @returns A {@linkcode boolean} indicating:
-   *          - Success: `true` if the cursor is visible and at line start, `false` otherwise
-   *          - Error: Never throws or returns an error
+   * @returns `true` if the cursor is visible and at line start, `false` otherwise
    */
   isAtLineHead(): boolean;
 
   /** Check if the cursor is at the end of a line
-   * @returns A {@linkcode boolean} indicating:
-   *          - Success: `true` if the cursor is visible and at line end, `false` otherwise
-   *          - Error: Never throws or returns an error
+   * @returns `true` if the cursor is visible and at line end, `false` otherwise
    */
   isAtLineTail(): boolean;
 
@@ -148,14 +128,12 @@ export declare class Cursor extends BaseStore<
   ): void;
 
   /** Get all lines in the current document
-   * @returns Array of BaseLine objects representing document lines
+   * @returns Array of document lines
    */
   get lines(): BaseLine[];
 
   /** Get the current page data
-   * @returns A {@linkcode Page} object containing:
-   *          - Success: The current page's metadata and content
-   *          - Error: Never throws or returns an error
+   * @returns The current page's metadata and content
    */
   get page(): Page;
 
@@ -172,52 +150,83 @@ export declare class Cursor extends BaseStore<
   /** Get the end position of the previous line */
   getPrevLineTail(): void;
   /** Move cursor to the previous position
-   * @param init - Optional settings for cursor movement
    * @param init.scrollInView - Whether to scroll the view to show the cursor
    */
   goBackward(init?: { scrollInView: boolean }): void;
 
   /** Move cursor to the next position
-   * @param init - Optional settings for cursor movement
    * @param init.scrollInView - Whether to scroll the view to show the cursor
    */
   goForward(init?: { scrollInView: boolean }): void;
-  /** Move cursor one character to the left */
+
+  /** Move cursor one character to the left
+   * Similar to goBackward() but without scroll options
+   */
   goLeft(): void;
-  /** Move cursor one character to the right */
+
+  /** Move cursor one character to the right
+   * Similar to goForward() but without scroll options
+   */
   goRight(): void;
-  /** Move cursor to the beginning of the document */
+
+  /** Move cursor to the beginning of the document
+   * Positions cursor at the start of the title line
+   */
   goTop(): void;
-  /** Move cursor to the end of the document */
+
+  /** Move cursor to the end of the document
+   * Positions cursor after the last character of the last line
+   */
   goBottom(): void;
-  /** Move cursor to the start of the current word */
+
+  /** Move cursor to the start of the current word
+   * Uses word boundaries to determine word start position
+   */
   goWordHead(): void;
   /** Get the position of the next word's start
    * @returns The coordinates and line information of the next word's start
    */
   getWordHead(): Position;
-  /** Move cursor to the end of the current word */
+
+  /** Move cursor to the end of the current word
+   * Uses word boundaries to determine word end position
+   */
   goWordTail(): void;
+
   /** Get the position of the previous word's end
    * @returns The coordinates and line information of the previous word's end
    */
   getWordTail(): Position;
+
   /** Jump to the position after indentation
    * If cursor is already after or within indentation, jump to line start
    */
   goLineHead(): void;
-  /** Jump to the end of the current line */
+
+  /** Jump to the end of the current line
+   * Positions cursor after the last character of the current line
+   */
   goLineTail(): void;
 
-  /** Synchronize cursor state */
+  /** Synchronize cursor state
+   * Queues a state update to be processed asynchronously
+   */
   sync(): void;
-  /** Immediately synchronize cursor state */
+
+  /** Immediately synchronize cursor state
+   * Forces an immediate state update without queueing
+   */
   syncNow(): void;
+
   /** Update the temporary horizontal cursor position
+   * Used to maintain column position during vertical movement
    * @returns The updated horizontal position
    */
   updateTemporalHorizontalPoint(): number;
-  /** Fired when the page is scrolled */
+
+  /** Fired when the page is scrolled
+   * Updates cursor position and visibility based on scroll state
+   */
   emitScroll(): void;
 
   /** Current cursor position data */

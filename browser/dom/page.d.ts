@@ -1,16 +1,7 @@
 import { BaseStore } from "./types.ts";
 import type { Page as PageData } from "@cosense/types/rest";
 
-/** Options for controlling cursor position and movement behavior in the editor */
-export interface SetPositionOptions {
-  /** Whether to auto-scroll the page when the cursor moves outside the viewport
-   * @default {true}
-   */
-  scrollInView?: boolean;
-
-  /** Source of the cursor movement event */
-  source?: "mouse";
-}
+export type { SetPositionOptions } from "./types.ts";
 
 /** Configuration for generating API fetch URLs */
 export interface ApiUrlForFetch {

@@ -2,8 +2,6 @@
  * 
  * Provides a common structure for error objects with a name and message.
  * This interface is extended by specific error types throughout the codebase.
- * 
- * @public
  */
 export interface ErrorLike {
   /** Unique identifier for the error type */
@@ -15,8 +13,6 @@ export interface ErrorLike {
 /** Network error that occurred during fetch
  * 
  * Represents a network connectivity or DNS resolution failure.
- * 
- * @public
  */
 export interface NetworkError extends ErrorLike {
   /** Error type identifier */
@@ -37,25 +33,6 @@ export interface NetworkError extends ErrorLike {
  * 
  * This error occurs when a request is cancelled before completion,
  * typically due to a timeout or user intervention.
- * 
- * @public
- */
-/** Error thrown when a request is aborted
- * 
- * This error occurs when a request is cancelled before completion,
- * typically due to a timeout or user intervention.
- * 
- * @public
- */
-/** Error indicating that an operation was aborted
- * 
- * This error occurs when a request or operation is manually cancelled
- * or times out.
- * 
- * @public
- */
-/** Error that occurs when a request is aborted
- * @public
  */
 export interface AbortError extends ErrorLike {
   /** Error type identifier */
@@ -70,8 +47,6 @@ export interface AbortError extends ErrorLike {
  * 
  * Union type of all error types that can occur during fetch operations.
  * Combines NetworkError and AbortError into a single type.
- * 
- * @public
  */
 export type FetchError = NetworkError | AbortError;
 

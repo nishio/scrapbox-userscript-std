@@ -19,8 +19,6 @@ export interface UnexpectedRequestError {
  * 
  * This error occurs when a request takes longer than
  * the specified timeout duration.
- * 
- * @public
  */
 export interface TimeoutError {
   /** Type identifier for timeout errors */
@@ -35,8 +33,6 @@ export interface TimeoutError {
  * - {@linkcode SocketIOError} - Socket.IO communication errors
  * - {@linkcode DuplicateTitleError} - Title already exists
  * - {@linkcode NotFastForwardError} - Commit ID is outdated
- * 
- * @public
  */
 export type PageCommitError =
   | SocketIOError
@@ -47,8 +43,6 @@ export type PageCommitError =
  *
  * This error occurs when there are Socket.IO-related issues.
  * When this error occurs, the request should be retried after a delay.
- * 
- * @public
  */
 export interface SocketIOError {
   /** Type identifier for Socket.IO errors */
@@ -71,8 +65,6 @@ export interface SocketIOServerDisconnectError {
  * 
  * This error occurs when attempting to create or rename a page
  * with a title that already exists.
- * 
- * @public
  */
 export interface DuplicateTitleError {
   /** Type identifier for duplicate title errors */
@@ -84,8 +76,6 @@ export interface DuplicateTitleError {
  * This error occurs when trying to commit changes using
  * an outdated commit ID, indicating that the page has been
  * modified by another user since the last fetch.
- * 
- * @public
  */
 export interface NotFastForwardError {
   /** Type identifier for not-fast-forward errors */
@@ -96,7 +86,6 @@ export interface NotFastForwardError {
  * 
  * @param error - Error object to check
  * @returns True if the error is a {@linkcode PageCommitError}
- * @public
  */
 export const isPageCommitError = (
   error: { name: string },

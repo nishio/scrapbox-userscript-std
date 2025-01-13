@@ -91,11 +91,7 @@ const getPage_fromResponse: GetPage["fromResponse"] = async (res) =>
     },
   );
 
-/** Interface for page retrieval operations
- * 
- * Provides methods to fetch and parse page data from the Scrapbox API,
- * including handling various error conditions.
- */
+/** Interface for page retrieval operations */
 export interface GetPage {
   /** Constructs a request for the `/api/pages/:project/:title` endpoint
    *

@@ -13,30 +13,24 @@ const youtubeShortRegExp =
 const youtubeListRegExp =
   /https?:\/\/(?:www\.|music\.|)youtube\.com\/playlist\?((?:[^\s]+&|)list=([a-zA-Z\d_-]+)(?:&[^\s]+|))/;
 
-/** Properties extracted from a YouTube URL
- * This type represents the parsed data from different types of YouTube URLs.
- * It's a union type that handles both video-related URLs and playlist URLs.
- *
- * For video URLs (standard, short URLs, or youtu.be links):
- * @property params - URL query parameters (e.g., timestamp, playlist reference)
- * @property videoId - The unique identifier of the video
- * @property pathType - The URL format type:
- *   - `com`: Standard youtube.com/watch?v= format
- *   - `dotbe`: Short youtu.be/ format
- *   - `short`: YouTube Shorts format
- *
- * For playlist URLs:
- * @property params - URL query parameters
- * @property listId - The unique identifier of the playlist
- * @property pathType - Always `list` for playlist URLs
- */
+/** Properties extracted from a YouTube URL */
 export type YoutubeProps = {
+  /** URL query parameters (e.g., timestamp, playlist reference) */
   params: URLSearchParams;
+  /** The unique identifier of the video */
   videoId: string;
+  /** The URL format type:
+   * - `com`: Standard youtube.com/watch?v= format
+   * - `dotbe`: Short youtu.be/ format
+   * - `short`: YouTube Shorts format
+   */
   pathType: "com" | "dotbe" | "short";
 } | {
+  /** URL query parameters */
   params: URLSearchParams;
+  /** The unique identifier of the playlist */
   listId: string;
+  /** Always `list` for playlist URLs */
   pathType: "list";
 };
 

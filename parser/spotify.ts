@@ -1,7 +1,7 @@
 const spotifyRegExp =
   /https?:\/\/open\.spotify\.com\/(track|artist|playlist|album|episode|show)\/([a-zA-Z\d_-]+)(?:\?[^\s]{0,100}|)/;
 /** Properties extracted from a Spotify URL
- * @property videoId - The unique identifier for the Spotify content (track, artist, playlist, etc.)
+ * @property videoId - The unique identifier for the Spotify content (`track`, `artist`, `playlist`, etc.)
  * @property pathType - The type of content, which determines how the ID should be used:
  *   - `track`: A single song or audio track
  *   - `artist`: An artist's profile page

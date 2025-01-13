@@ -5,8 +5,6 @@ import { push, type PushError, type PushOptions } from "./push.ts";
 /** Options for pinning pages
  * 
  * Configuration options for pinning operations.
- * 
- * @public
  */
 export interface PinOptions extends PushOptions {
   /** Option to control behavior when the target page doesn't exist
@@ -63,8 +61,6 @@ export const pin = (
  * 
  * Extends {@linkcode PushOptions} to provide configuration for the unpin operation.
  * Controls how the unpin request is sent and handled.
- * 
- * @public
  */
 export interface UnPinOptions extends PushOptions {}
 

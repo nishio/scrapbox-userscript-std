@@ -19,14 +19,6 @@ import type { FetchError } from "./errors.ts";
  * @returns A {@linkcode Result}<{@linkcode Response}, {@linkcode FetchError}> containing:
  *          - Success: The response from the server
  *          - Error: Network or other fetch-related errors
- * 
- * @public
- */
-/** A fetch function that handles network errors and timeouts
- * 
- * @param request - The request to send
- * @returns A Result containing either the Response or a FetchError
- * @public
  */
 export type RobustFetch = (
   input: RequestInfo | URL,
@@ -54,8 +46,6 @@ export type { SearchedTitle } from "@cosense/types/rest";
  * 
  * String that uniquely identifies a Scrapbox project.
  * Used throughout the API for project-related operations.
- * 
- * @public
  */
 export type ProjectId = string;
 
@@ -80,7 +70,6 @@ export type { GuestUser } from "@cosense/types/rest";
  * Used for exporting pages with optional metadata inclusion.
  * 
  * @template T - Whether to include metadata (true/false)
- * @public
  */
 export interface ExportedData<T extends boolean = true> {
   /** Project name */
@@ -115,7 +104,6 @@ export interface ExportedData<T extends boolean = true> {
  * Used for importing pages with optional metadata inclusion.
  * 
  * @template T - Whether to include metadata (true/false)
- * @public
  */
 export interface ImportedData<T extends boolean = false> {
   /** Project name */

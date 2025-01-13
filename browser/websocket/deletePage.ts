@@ -5,8 +5,6 @@ import type { Result } from "option-t/plain_result";
  * 
  * Extends {@linkcode PushOptions} to provide configuration for the delete operation.
  * Controls how the delete request is sent and handled.
- * 
- * @public
  */
 export type DeletePageOptions = PushOptions;
 

@@ -14,8 +14,6 @@ export type PatchOptions = PushOptions;
 /** Metadata for patched page changes
  * 
  * Contains information about a page that has been modified via patch operation.
- * 
- * @public
  */
 export interface PatchMetadata extends Page {
   /** Number of retry attempts for page modification

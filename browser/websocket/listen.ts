@@ -63,8 +63,6 @@ export interface ListenStreamOptions {
  * 
  * Combines network and abort errors that can occur during
  * WebSocket stream operations.
- * 
- * @public
  */
 export type ListenStreamError =
   | NotFoundError

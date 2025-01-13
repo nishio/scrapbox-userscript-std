@@ -6,6 +6,20 @@
  * @module
  */
 
+/** Options for controlling cursor position and movement behavior in the editor */
+export interface SetPositionOptions {
+  /** Whether to auto-scroll the page when the cursor moves outside the viewport
+   * @default {true}
+   */
+  scrollInView?: boolean;
+
+  /** Source of the cursor movement event
+   * 
+   * `"mouse"` indicates the cursor was moved by mouse interaction
+   */
+  source?: "mouse";
+}
+
 /** Re-export BaseLine from @cosense/types/rest */
 export type { BaseLine } from "@cosense/types/rest";
 
