@@ -230,13 +230,13 @@ export declare class Cursor extends BaseStore<
   emitScroll(): void;
 
   /** Current cursor position data */
-  data: Position;
+  private data: Position;
   /** Temporary horizontal position for vertical movement */
-  temporalHorizontalPoint: number;
+  private temporalHorizontalPoint: number;
   /** Whether the cursor is currently visible */
-  visible: boolean;
+  private visible: boolean;
   /** Whether the popup menu is currently visible */
-  visiblePopupMenu: boolean;
+  private visiblePopupMenu: boolean;
   /** Whether the text input area has focus */
-  focusTextarea: boolean;
+  private focusTextarea: boolean;
 }

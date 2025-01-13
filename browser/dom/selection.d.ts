@@ -97,5 +97,5 @@ export declare class Selection extends BaseStore<undefined> {
   fixRange(): void;
 
   /** Internal storage for selection range data */
-  data: Range;
+  private data: Range;
 }
