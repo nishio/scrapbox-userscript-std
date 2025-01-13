@@ -9,9 +9,7 @@ export interface Link {
   title: string;
 }
 
-/** Represents the state of a page-to-page navigation
- * Used to track navigation between two specific pages within Scrapbox
- */
+/** Represents the state of a page-to-page navigation */
 export interface PageTransitionContextLink {
   /** Type identifier for page-to-page navigation */
   type: "page";
@@ -23,9 +21,7 @@ export interface PageTransitionContextLink {
   to: Link;
 }
 
-/** Represents the state when navigating from search results to a specific page
- * Used to track navigation that originates from a full-text search
- */
+/** Represents the state when navigating from search results to a specific page */
 export interface PageTransitionContextQuery {
   /** Type identifier for search-to-page navigation */
   type: "search";

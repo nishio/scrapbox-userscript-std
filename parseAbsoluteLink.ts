@@ -50,9 +50,9 @@ export interface YoutubeNode {
   /** The unique identifier of the YouTube video */
   videoId: string;
   /** The type of YouTube URL format:
-   * - "com" for youtube.com URLs
-   * - "dotbe" for youtu.be URLs
-   * - "short" for YouTube Shorts URLs
+   * - `com` for youtube.com URLs
+   * - `dotbe` for youtu.be URLs
+   * - `short` for YouTube Shorts URLs
    */
   pathType: "com" | "dotbe" | "short";
   /** Query parameters from the YouTube URL */
@@ -73,7 +73,7 @@ export interface YoutubeListNode {
   type: "youtube";
   /** The unique identifier of the YouTube playlist */
   listId: string;
-  /** Always "list" for playlist URLs */
+  /** Always `list` for playlist URLs */
   pathType: "list";
   /** Query parameters from the YouTube URL */
   params: URLSearchParams;
@@ -109,12 +109,12 @@ export interface SpotifyNode {
   /** The unique identifier of the Spotify content */
   videoId: string;
   /** The type of Spotify content:
-   * - "track" for individual songs
-   * - "artist" for artist profiles
-   * - "playlist" for user playlists
-   * - "album" for full albums
-   * - "episode" for podcast episodes
-   * - "show" for podcast shows
+   * - `track` for individual songs
+   * - `artist` for artist profiles
+   * - `playlist` for user playlists
+   * - `album` for full albums
+   * - `episode` for podcast episodes
+   * - `show` for podcast shows
    */
   pathType: "track" | "artist" | "playlist" | "album" | "episode" | "show";
   /** The complete Spotify URL */

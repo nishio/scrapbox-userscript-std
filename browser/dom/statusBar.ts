@@ -1,10 +1,6 @@
 import { statusBar } from "./dom.ts";
 
-/** Result type for the useStatusBar hook
- * 
- * Provides methods to manage the status bar message display
- * and cleanup resources when no longer needed.
- */
+/** Result type for the useStatusBar hook */
 export interface UseStatusBarResult {
   /** Display information in the acquired status bar section
    *
@@ -39,11 +35,7 @@ export const useStatusBar = (): UseStatusBarResult => {
   };
 };
 
-/** A group of status bar items that should be displayed together
- * 
- * Used to organize multiple status bar items into a logical group
- * that will be rendered together with consistent styling.
- */
+/** A group of status bar items that should be displayed together */
 export interface ItemGroup {
   /** Identifies this as a group of items */
   type: "group";

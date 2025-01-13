@@ -7,7 +7,9 @@ import type { Position } from "./position.ts";
  * Used for managing text selection operations in the editor.
  */
 export interface Range {
+  /** Starting position of the selection range */
   start: Position;
+  /** Ending position of the selection range */
   end: Position;
 }
 
@@ -21,7 +23,6 @@ export declare class Selection extends BaseStore<undefined> {
 
 
 
-  /** Get the current page content as an array of lines */
   /** Get the currently selected lines
    * 
    * @returns Array of selected lines
@@ -29,14 +30,10 @@ export declare class Selection extends BaseStore<undefined> {
   get lines(): BaseLine[];
 
   /** Get the current selection range
-   *
-   * @param init Set `init.normalizeOrder` to `true` to ensure Range.start is
-   *            the beginning of the selection (useful for consistent text processing)
-   * @returns The current {@linkcode Range} object representing the selection
-   */
-  /** Get the current selection range
    * 
    * @param init - Optional settings for range calculation
+   * @param init.normalizeOrder - Set to `true` to ensure Range.start is
+   *                             the beginning of the selection
    * @returns The current selection range
    */
   getRange(init?: { normalizeOrder: boolean }): Range;
@@ -98,17 +95,15 @@ export declare class Selection extends BaseStore<undefined> {
   hasSelectionAll(): boolean;
 
   /** Adjust position to be within valid bounds
-   * 
    * @param position - Position to validate and adjust
    */
-  private fixPosition(position: Position): void;
+  fixPosition(position: Position): void;
 
   /** Ensure the current range is valid
-   * 
-   * Validates and adjusts the current selection range to be within bounds.
+   * Validates and adjusts the current selection range to be within bounds
    */
-  private fixRange(): void;
+  fixRange(): void;
 
   /** Internal storage for selection range data */
-  private data: Range;
+  data: Range;
 }

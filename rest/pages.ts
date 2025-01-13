@@ -19,7 +19,6 @@ import type {
 } from "./errors.ts";
 import type { Page, PageList } from "./types.ts";
 
-/** Options for {@linkcode getPage} */
 /** Options for retrieving a single page */
 export interface GetPageOption extends BaseOptions {
   /** Whether to follow page renames
@@ -92,16 +91,10 @@ const getPage_fromResponse: GetPage["fromResponse"] = async (res) =>
     },
   );
 
-/** Interface for retrieving a single page's content
+/** Interface for page retrieval operations
  * 
  * Provides methods to fetch and parse page data from the Scrapbox API,
  * including handling various error conditions.
- */
-/** Interface for page retrieval operations
- * 
- * Defines the structure for retrieving page data from the API.
- * 
- * @public
  */
 export interface GetPage {
   /** Constructs a request for the `/api/pages/:project/:title` endpoint
@@ -137,13 +130,6 @@ export interface GetPage {
   ): Promise<Result<Page, PageError | FetchError>>;
 }
 
-/** Possible errors that can occur when fetching page data
- * 
- * Includes errors for:
- * - Not found pages
- * - Network/HTTP errors
- * - Authentication failures
- */
 /** Possible errors that can occur when fetching page data
  * 
  * Union type of all possible error types that can be returned when
@@ -199,21 +185,23 @@ export const getPage: GetPage = /* @__PURE__ */ (() => {
   return fn;
 })();
 
-/** Options for {@linkcode listPages} */
 /** Options for listing pages in a project */
 export interface ListPagesOption extends BaseOptions {
   /** How to sort the returned page list
+   * 
+   * Available sort options:
+   * - `updatedWithMe`: Sort by pages updated by the current user
+   * - `updated`: Sort by last update time
+   * - `created`: Sort by creation time
+   * - `accessed`: Sort by last access time
+   * - `pageRank`: Sort by page rank
+   * - `linked`: Sort by number of incoming links
+   * - `views`: Sort by view count
+   * - `title`: Sort alphabetically by title
+   * 
    * @default {"updated"}
    */
-  sort?:
-    | "updatedWithMe" /** Sort by pages updated by the current user */
-    | "updated" /** Sort by last update time */
-    | "created" /** Sort by creation time */
-    | "accessed" /** Sort by last access time */
-    | "pageRank" /** Sort by page rank */
-    | "linked" /** Sort by number of incoming links */
-    | "views" /** Sort by view count */
-    | "title"; /** Sort alphabetically by title */
+  sort?: "updatedWithMe" | "updated" | "created" | "accessed" | "pageRank" | "linked" | "views" | "title";
 
   /** Number of pages to skip (for pagination)
    * @default {0}
@@ -267,13 +255,7 @@ export interface ListPages {
   ): Promise<Result<PageList, ListPagesError | FetchError>>;
 }
 
-/** Possible errors that can occur when listing pages
- * 
- * Includes errors for:
- * - Network/HTTP issues
- * - Authentication failures
- * - Invalid parameters
- */
+/** Possible errors that can occur when listing pages */
 export type ListPagesError =
   | NotFoundError
   | NotLoggedInError

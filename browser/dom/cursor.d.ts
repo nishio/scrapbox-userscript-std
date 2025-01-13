@@ -6,11 +6,7 @@ export type { BaseStore } from "./types.ts";
 import type { Position } from "./position.ts";
 import type { Page } from "./page.d.ts";
 
-/** Options for setting cursor position in the editor
- * 
- * Controls cursor movement behavior and event source tracking.
- * Used by the Cursor class to manage cursor positioning.
- */
+/** Options for configuring cursor position updates */
 export interface SetPositionOptions {
   /** Whether to auto-scroll the page when the cursor moves outside the viewport
    *
@@ -26,9 +22,6 @@ export interface SetPositionOptions {
 }
 
 /** Class for managing cursor operations in the Scrapbox editor
- *
- * Handles cursor positioning and movement within the editor.
- * Extends BaseStore for event handling capabilities.
  * 
  * @see {@linkcode Position} for cursor position type details
  * @see {@linkcode Page} for page data type details
@@ -155,7 +148,6 @@ export declare class Cursor extends BaseStore<
   ): void;
 
   /** Get all lines in the current document
-   * 
    * @returns Array of BaseLine objects representing document lines
    */
   get lines(): BaseLine[];
@@ -168,77 +160,74 @@ export declare class Cursor extends BaseStore<
   get page(): Page;
 
   /** Move the cursor up one line */
-  private goUp(): void;
+  goUp(): void;
   /** Move the cursor up one page */
-  private goPageUp(): void;
+  goPageUp(): void;
   /** Move the cursor down one line */
-  private goDown(): void;
+  goDown(): void;
   /** Move cursor to the next page */
-  private goPageDown(): void;
+  goPageDown(): void;
   /** Get the start position of the next line */
-  private getNextLineHead(): void;
+  getNextLineHead(): void;
   /** Get the end position of the previous line */
-  private getPrevLineTail(): void;
-  /** Move cursor backward one character
-   * @param init - Optional configuration object
-   * @param init.scrollInView - Whether to scroll the view to keep cursor visible
+  getPrevLineTail(): void;
+  /** Move cursor to the previous position
+   * @param init - Optional settings for cursor movement
+   * @param init.scrollInView - Whether to scroll the view to show the cursor
    */
-  private goBackward(init?: { scrollInView: boolean }): void;
+  goBackward(init?: { scrollInView: boolean }): void;
 
-  /** Move cursor forward one character
-   * @param init - Optional configuration object
-   * @param init.scrollInView - Whether to scroll the view to keep cursor visible
+  /** Move cursor to the next position
+   * @param init - Optional settings for cursor movement
+   * @param init.scrollInView - Whether to scroll the view to show the cursor
    */
-  private goForward(init?: { scrollInView: boolean }): void;
-  /** Move cursor one character left */
-  private goLeft(): void;
-  /** Move cursor one character right */
-  private goRight(): void;
-  /** Jump to the first character of the title */
-  private goTop(): void;
-  /** Jump to the end of the last line */
-  private goBottom(): void;
+  goForward(init?: { scrollInView: boolean }): void;
+  /** Move cursor one character to the left */
+  goLeft(): void;
+  /** Move cursor one character to the right */
+  goRight(): void;
+  /** Move cursor to the beginning of the document */
+  goTop(): void;
+  /** Move cursor to the end of the document */
+  goBottom(): void;
   /** Move cursor to the start of the current word */
-  private goWordHead(): void;
+  goWordHead(): void;
   /** Get the position of the next word's start
-   * @returns A {@linkcode Position} containing:
-   *          - Success: The coordinates and line information of the next word's start
-   *          - Error: Never throws or returns an error
+   * @returns The coordinates and line information of the next word's start
    */
-  private getWordHead(): Position;
+  getWordHead(): Position;
   /** Move cursor to the end of the current word */
-  private goWordTail(): void;
+  goWordTail(): void;
   /** Get the position of the previous word's end
-   * @returns A {@linkcode Position} containing:
-   *          - Success: The coordinates and line information of the previous word's end
-   *          - Error: Never throws or returns an error
+   * @returns The coordinates and line information of the previous word's end
    */
-  private getWordTail(): Position;
+  getWordTail(): Position;
   /** Jump to the position after indentation
-   *
    * If cursor is already after or within indentation, jump to line start
    */
-  private goLineHead(): void;
+  goLineHead(): void;
   /** Jump to the end of the current line */
-  private goLineTail(): void;
+  goLineTail(): void;
 
   /** Synchronize cursor state */
-  private sync(): void;
+  sync(): void;
   /** Immediately synchronize cursor state */
-  private syncNow(): void;
+  syncNow(): void;
   /** Update the temporary horizontal cursor position
    * @returns The updated horizontal position
    */
-  private updateTemporalHorizontalPoint(): number;
-  /** Fired when the page is scrolled
-   *
-   * Triggers the `event: "source"` event
-   */
-  private emitScroll(): void;
+  updateTemporalHorizontalPoint(): number;
+  /** Fired when the page is scrolled */
+  emitScroll(): void;
 
-  private data: Position;
-  private temporalHorizontalPoint: number;
-  private visible: boolean;
-  private visiblePopupMenu: boolean;
-  private focusTextarea: boolean;
+  /** Current cursor position data */
+  data: Position;
+  /** Temporary horizontal position for vertical movement */
+  temporalHorizontalPoint: number;
+  /** Whether the cursor is currently visible */
+  visible: boolean;
+  /** Whether the popup menu is currently visible */
+  visiblePopupMenu: boolean;
+  /** Whether the text input area has focus */
+  focusTextarea: boolean;
 }

@@ -366,9 +366,9 @@ export const getCharDOM = <T extends HTMLElement>(
  * 
  * @param x - X coordinate on screen
  * @param y - Y coordinate on screen
- * @returns Object containing character and line elements if found
- * @property char - Character element at coordinates if found
- * @property line - Line element at coordinates if found
+ * @returns {object} Object containing:
+ *   - char: Character element at coordinates if found
+ *   - line: Line element at coordinates if found
  */
 export const getDOMFromPoint = (
   x: number,

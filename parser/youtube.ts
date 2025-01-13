@@ -21,14 +21,14 @@ const youtubeListRegExp =
  * @property params - URL query parameters (e.g., timestamp, playlist reference)
  * @property videoId - The unique identifier of the video
  * @property pathType - The URL format type:
- *   - "com": Standard youtube.com/watch?v= format
- *   - "dotbe": Short youtu.be/ format
- *   - "short": YouTube Shorts format
+ *   - `com`: Standard youtube.com/watch?v= format
+ *   - `dotbe`: Short youtu.be/ format
+ *   - `short`: YouTube Shorts format
  *
  * For playlist URLs:
  * @property params - URL query parameters
  * @property listId - The unique identifier of the playlist
- * @property pathType - Always "list" for playlist URLs
+ * @property pathType - Always `list` for playlist URLs
  */
 export type YoutubeProps = {
   params: URLSearchParams;
@@ -64,8 +64,8 @@ export type YoutubeProps = {
  * @param url - Any URL or string to parse
  * @returns A {@linkcode Result}<{@linkcode YoutubeProps}, {@linkcode undefined}> containing:
  *          - Success: The extracted video/playlist information with:
- *            - For videos: videoId, params, and pathType ("com", "dotbe", or "short")
- *            - For playlists: listId, params, and pathType ("list")
+ *            - For videos: videoId, params, and pathType (`com`, `dotbe`, or `short`)
+ *            - For playlists: listId, params, and pathType (`list`)
  *          - Error: {@linkcode undefined} if not a valid YouTube URL
  */
 export const parseYoutube = (url: string): YoutubeProps | undefined => {

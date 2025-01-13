@@ -1,10 +1,6 @@
 import { textInput } from "./dom.ts";
 
-/** Options for simulating keyboard events in the editor
- * 
- * Configures which modifier keys are pressed during the key event.
- * Used by the {@linkcode press} function to simulate keyboard input.
- */
+/** Options for simulating keyboard events in the editor */
 export interface PressOptions {
   /** Whether the Shift key is pressed
    * @default {false}
@@ -59,15 +55,7 @@ export const press = (
   textarea.dispatchEvent(new KeyboardEvent("keyup", options));
 };
 
-/** Map of key names to their corresponding key codes
- * 
- * Contains mappings for:
- * - Special keys (Enter, Tab, etc.)
- * - Alphabets (a-z, A-Z)
- * - Numbers (0-9)
- * - Function keys (F1-F12)
- * - Symbols and special characters
- */
+/** Map of key names to their corresponding key codes */
 const KEYCODE_MAP = {
   Backspace: 8,
   Tab: 9,
@@ -188,7 +176,6 @@ const KEYCODE_MAP = {
 export { KEYCODE_MAP };
 
 /** Valid key names that can be used with the press function
- * 
  * @see {@linkcode press} for usage with these key names
  * @see {@linkcode KEYCODE_MAP} for the full list of supported keys
  */

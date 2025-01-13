@@ -3,12 +3,12 @@ const spotifyRegExp =
 /** Properties extracted from a Spotify URL
  * @property videoId - The unique identifier for the Spotify content (track, artist, playlist, etc.)
  * @property pathType - The type of content, which determines how the ID should be used:
- *   - "track": A single song or audio track
- *   - "artist": An artist's profile page
- *   - "playlist": A user-created collection of tracks
- *   - "album": A collection of tracks released as a single unit
- *   - "episode": A single podcast episode
- *   - "show": A podcast series
+ *   - `track`: A single song or audio track
+ *   - `artist`: An artist's profile page
+ *   - `playlist`: A user-created collection of tracks
+ *   - `album`: A collection of tracks released as a single unit
+ *   - `episode`: A single podcast episode
+ *   - `show`: A podcast series
  */
 export interface SpotifyProps {
   videoId: string;
@@ -33,7 +33,7 @@ export interface SpotifyProps {
  * @returns A {@linkcode Result}<{@linkcode SpotifyProps}, {@linkcode undefined}> containing:
  *          - Success: The content information with:
  *            - videoId: The unique content identifier
- *            - pathType: Content type ("track", "artist", "playlist", "album", "episode", or "show")
+ *            - pathType: Content type (`track`, `artist`, `playlist`, `album`, `episode`, or `show`)
  *          - Error: {@linkcode undefined} if not a valid Spotify URL
  */
 export const parseSpotify = (url: string): SpotifyProps | undefined => {

@@ -7,18 +7,6 @@ import type { JsonValue } from "@std/json";
  * - The server receives an invalid request format
  * - The server response doesn't match the expected schema
  * - The client sends an invalid request
- * 
- * @public
- */
-/** Error thrown when a WebSocket request is malformed or unexpected
- * 
- * This error occurs when the server returns an unexpected error
- * that can be serialized as JSON. The error can happen when:
- * - The server receives an invalid request format
- * - The server response doesn't match the expected schema
- * - The client sends an invalid request
- * 
- * @public
  */
 export interface UnexpectedRequestError {
   /** Type identifier for unexpected request errors */
@@ -73,17 +61,6 @@ export interface SocketIOError {
  * - The Socket.IO server sends a "io server disconnect" event
  * - The WebSocket connection is terminated by the server before completion
  * - The connection to the server is lost unexpectedly
- * 
- * @public
- */
-/** Error thrown when Socket.IO server disconnects unexpectedly
- * 
- * This error occurs when:
- * - The Socket.IO server sends a "io server disconnect" event
- * - The WebSocket connection is terminated by the server before completion
- * - The connection to the server is lost unexpectedly
- * 
- * @public
  */
 export interface SocketIOServerDisconnectError {
   /** Type identifier for Socket.IO server disconnect errors */
